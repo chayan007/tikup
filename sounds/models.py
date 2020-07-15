@@ -1,3 +1,16 @@
 from django.db import models
 
-# Create your models here.
+from base.models import BaseModel
+
+from usermodule.models import Profile
+
+
+class Sound(BaseModel):
+    """Model to store all sounds."""
+
+    name = models.CharField(max_length=200)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    sound_file = models.FileField(upload_to='upload/sounds/')
+
+    def __str__(self):
+        return self.name
