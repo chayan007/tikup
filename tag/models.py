@@ -1,7 +1,11 @@
 from django.db import models
 
+from base.models import BaseModel
 
-class Hashtag(models.Model):
+from posts.models import Post
+
+
+class Hashtag(BaseModel):
     """Model for hashtags."""
 
     name = models.CharField(max_length=100)
@@ -12,8 +16,15 @@ class Hashtag(models.Model):
         return self.name
 
 
-class HashtagLink(models.Model):
+class HashtagLink(BaseModel):
     """Model for hashtags mapping with post."""
 
-    post = 1
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     hashtag = models.ForeignKey(Hashtag, on_delete=models.CASCADE)
+
+    def __str__(self):
+        """ Harish Ugniv -> Yolo : Representation layer."""
+        return '{} -> {}'.format(
+            self.post.profile.user.get_full_name(),
+            self.hashtag.name
+        )
