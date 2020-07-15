@@ -16,7 +16,7 @@ This is a video streaming application similiar to Tiktok.
 2. Create virtual environment for this project.
 3. Activate the virtual environment.
 4. Store env variables for the project (neglect this).
-5. `pip install requirements.txt` - install all dependencies.
+5. `pip install -r requirements.txt` - install all dependencies.
 6. `python manage.py migrate` - make database migrations and update tables.
 7. `python manage.py runserver` - runs the backend server for application.
 8. Fire up the browser and visit `127.0.0.1:8000/admin`
