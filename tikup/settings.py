@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 PROJECT_APPS = [
     'base',
+    'notifications',
     'posts',
     'sounds',
     'usermodule',
