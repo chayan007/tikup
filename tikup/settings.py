@@ -31,10 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 PROJECT_APPS = [
+    'activity',
     'base',
     'notifications',
     'posts',
     'sounds',
+    'tracker',
     'usermodule',
     'verification'
 ]
