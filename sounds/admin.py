@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from sounds.models import Sound
+
+admin.site.register(Sound)
