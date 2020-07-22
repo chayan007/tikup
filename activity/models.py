@@ -11,9 +11,11 @@ class Activity(BaseModel):
     """Model to record user interactions with applications."""
     FAVORITE = 'F'
     LIKE = 'L'
+    REPORT = 'R'
     ACTIVITY_TYPES = (
         (FAVORITE, 'Favorite'),
         (LIKE, 'Like'),
+        (REPORT, 'Report')
     )
 
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
