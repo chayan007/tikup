@@ -1,8 +1,8 @@
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 from base.models import BaseModel
+
+from posts.models import Post
 
 from usermodule.models import Profile
 
@@ -18,10 +18,7 @@ class Activity(BaseModel):
 
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     activity_type = models.CharField(max_length=1, choices=ACTIVITY_TYPES)
-    date = models.DateTimeField(auto_now_add=True)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} -> {}'.format(
