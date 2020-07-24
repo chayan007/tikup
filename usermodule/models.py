@@ -28,3 +28,6 @@ class FollowerMap(BaseModel):
             self.follower.user.username,
             self.following.user.username
         )
+
+    class Meta:
+        unique_together = ('follower', 'following',)
