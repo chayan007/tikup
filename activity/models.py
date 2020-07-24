@@ -27,3 +27,6 @@ class Activity(BaseModel):
             self.profile.user.get_full_name(),
             self.get_activity_type_display()
         )
+
+    class Meta:
+        unique_together = ('profile', 'post', 'activity_type',)
