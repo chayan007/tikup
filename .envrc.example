@@ -1,0 +1,5 @@
+export DB_USER=
+export DB_PASSWORD=
+export DB_HOST=
+export DJANGO_SETTINGS_MODULE=settings.local
+export GITHUB_TOKEN=
