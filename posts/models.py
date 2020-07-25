@@ -15,6 +15,7 @@ class Post(BaseModel):
     video_file = models.FileField(upload_to='uploads/videos/')
     video_gif = models.FileField(upload_to='uploads/gifs/', null=True, blank=True)
     description = models.TextField(null=True)
+    share_pointer = models.ForeignKey('self', on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.profile.user.get_full_name()
