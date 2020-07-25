@@ -37,7 +37,7 @@ class Comment(BaseModel):
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    reply = models.ForeignKey('self', null=True, blank=True)
+    reply = models.ForeignKey('self', on_delete=models.PROTECT, related_name='reply_link', null=True, blank=True)
     comment = models.TextField()
 
     def __str__(self):

@@ -12,6 +12,7 @@ class Profile(BaseModel):
     country = models.CharField(max_length=100, null=True)
     is_verified = models.BooleanField(default=False)
     is_private = models.BooleanField(default=False)
+    display_pic = models.ImageField(upload_to='user/image/', null=True, blank=True)
 
     def __str__(self):
         return self.user.get_full_name()
