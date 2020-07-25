@@ -7,26 +7,27 @@ import uuid
 
 class Migration(migrations.Migration):
 
-    initial = True
-
     dependencies = [
-        ('posts', '0002_auto_20200725_0504'),
-        ('usermodule', '0002_auto_20200725_0504'),
+        ('usermodule', '0001_initial'),
     ]
 
     operations = [
+        migrations.AddField(
+            model_name='profile',
+            name='is_private',
+            field=models.BooleanField(default=False),
+        ),
         migrations.CreateModel(
-            name='Activity',
+            name='FollowerMap',
             fields=[
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Created At')),
                 ('modified_at', models.DateTimeField(auto_now=True, verbose_name='Last Modified At')),
-                ('activity_type', models.CharField(choices=[('F', 'Favorite'), ('L', 'Like'), ('R', 'Report')], max_length=1)),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='posts.Post')),
-                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='usermodule.Profile')),
+                ('follower', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='follower', to='usermodule.Profile')),
+                ('following', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='following', to='usermodule.Profile')),
             ],
             options={
-                'unique_together': {('profile', 'post', 'activity_type')},
+                'unique_together': {('follower', 'following')},
             },
         ),
     ]

@@ -13,7 +13,7 @@ class Post(BaseModel):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     sound = models.ForeignKey(Sound, on_delete=models.PROTECT)
     video_file = models.FileField(upload_to='uploads/videos/')
-    video_gif = models.FileField(upload_to='uploads/gifs/')
+    video_gif = models.FileField(upload_to='uploads/gifs/', null=True, blank=True)
     description = models.TextField(null=True)
 
     def __str__(self):

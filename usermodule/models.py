@@ -20,8 +20,8 @@ class Profile(BaseModel):
 class FollowerMap(BaseModel):
     """Follower record database."""
 
-    follower = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    following = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='follower')
+    following = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
 
     def __str__(self):
         return '{} followed {}'.format(
