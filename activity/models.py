@@ -30,3 +30,18 @@ class Activity(BaseModel):
 
     class Meta:
         unique_together = ('profile', 'post', 'activity_type',)
+
+
+class Comment(BaseModel):
+    """Store comments for posts."""
+
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    reply = models.ForeignKey('self', null=True, blank=True)
+    comment = models.TextField()
+
+    def __str__(self):
+        return '{}: {}'.format(
+            self.profile.user.get_full_name(),
+            self.comment[:100]
+        )
