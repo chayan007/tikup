@@ -11,7 +11,7 @@ class OTP(BaseModel):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     otp = models.CharField(max_length=6)
     verified_at = models.DateTimeField(null=True, blank=True)
-    reason = models.CharField(max_length=10, null=True, blank=True)
+    reason = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return '{} -> {}'.format(self.profile.user.first_name, self.reason)
