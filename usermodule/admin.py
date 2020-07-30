@@ -29,3 +29,10 @@ class ProfileAdmin(admin.ModelAdmin):
         'get_video_liked_count', 'get_personal_video_like_metric',
         'get_personal_videos_count'
     )
+
+
+@admin.register(FollowerMap)
+class FollowerMapAdmin(admin.ModelAdmin):
+    """Admin for Followers."""
+
+    list_display = ('follower', 'following')
