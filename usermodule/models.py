@@ -7,7 +7,7 @@ from base.models import BaseModel
 class Profile(BaseModel):
     """One-to-one profile model."""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     dob = models.DateField(null=True)
     country = models.CharField(max_length=100, null=True)
     is_verified = models.BooleanField(default=False)
