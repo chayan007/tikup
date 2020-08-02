@@ -14,9 +14,9 @@ DATABASES = {
 DEFAULT_FILE_STORAGE = 'gcloud.GoogleCloudMediaFileStorage'
 STATICFILES_STORAGE = 'gcloud.GoogleCloudStaticFileStorage'
 
-GS_PROJECT_ID = 'PROJECT ID FOUND IN GOOGLE CLOUD'
-GS_STATIC_BUCKET_NAME = 'NAME OF THE STATIC BUCKET CREATED IN CLOUD STORAGE'
-GS_MEDIA_BUCKET_NAME = 'NAME OF THE MEDIA BUCKET CREATED IN CLOUD STORAGE'  # same as STATIC BUCKET if using single bucket both for static and media
+GS_PROJECT_ID = 'tokyo-amphora-240111'
+GS_STATIC_BUCKET_NAME = 'misco-static-storage'
+GS_MEDIA_BUCKET_NAME = 'misco-storage'
 
 STATIC_URL = 'https://storage.googleapis.com/{}/'.format(GS_STATIC_BUCKET_NAME)
 STATIC_ROOT = "static/"
