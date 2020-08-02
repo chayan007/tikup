@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "tokyo-amphora-240111",
+  "private_key_id": "02d50323f31bec3156186da9bb4b86de58b85bf1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDV7/q9uOTxWO0T\nkVuf0BsJm0Pc5fqULlvL7OmaF1CqZXGkbdErX9cglQZ56OqXg07FYSdab0NlC5+w\n6DliRmLsGImQihdD6zhPJ8WHRufqMQtaGlQSDvjA6Nh4DT6KXYkqsNa/dg8RxVZx\nINb0KSbT2OECML4ACJOj2ajAaPfcEVjBOEHoRlY4o5LWfhtq6shUWKO9wtdOfRiD\n5iK0wLKh8k4Pn/Bib285mBqhCIcQhPmsJBigVm8TtIylOzf3kIE8C3RUZpGnCRUY\nuKYkmHf0fbc2uOvdwG1rCT7P6vuFCFRhOqp4oR3QDCQOgOwnDur9VNCKnq8kIJvy\nnVKkMwMFAgMBAAECggEABrg/dXcZxdTnuW4e5SGpv77/PjCBEudz3a9m1P63e2qt\nS59haw3bGXxk1C5zM+gdcMiw7j/Ba6qWTP22U7ZnRAgvRfl4aps4TRAwPaQGA86f\njyh1jI2o1ZJavkaYOMtgVBVy4VepeILsyKfh6JBkVlIhGysBxMmALazYBpcldeWM\n4q3upZhQ84fQmBLFLSg24LXaVKJxZ1p93Mc+foKE5mihYCCSbXeTXJnvXX4fCHQw\nrkacEXIPC1ETgXjHRrfKrh3u0FRN/CCzdGV4vW8vveMmrTvEbvJVLOzQNzCYN5vV\nJXWnqgXkW2rPAO1lMbKDFU+krx0sRLEG1Wvsxjv9PwKBgQDtM2A3yvgoWgAIIqra\nYvQshEM6qBg81mFCH/3vCh+J4KC9jQEjyfUDMJKbzBJvns1Z1IvZ0KcLhWjcZ5Hg\n9qHJKbQ7A/HGsO34RxuHyOcQELBAmJIHJnvOFO1CBK8/jlX3c0Szp00Jch6HJ0er\n9KPmrI+MNAeFW60ztxe8Y7J5GwKBgQDm5Jv+e7N3cvhXareNZg6bM0vQXoI+N7O4\nIvoDkaGLIoEJHBcNAq7smpzpK7Sse7NhGwZzKTXTb3BV0syA6gqWwP5gJRnoMeau\n/qRgd+6x0GpWq8bNfuYXgCUsPNyrtYZOl23lcm7VFxVLWrTqAJXTJvTl+jT+ZbuI\nwnwsVmtWXwKBgQCHsGYQRImk+6cdAEfgWc74UEjtGw+SbciBPS/UOGRGSTtqc2j9\ngiAozPZxLVI2jA9Ine/KkDOewZh0zMKEgFGYc8ToJZ9/W+Mlrfevu1uCsylAKocO\nlBMqlooKxAdEQjYnMcdRRhkpmCCii/PSCEZiRMBxIapTvVfdR5XKbPXBlQKBgHBm\nmgoo7hUYQw1LRk/vfuzO6/lkCMOBGlxpqoxSOPIiue5VXmNXCxDjs79PJ4VQMuLy\n5RDq3ukvNuCQ3j1jsgPxr+PeK959bG+ER0EvIWQusZW/yef//sMx/uaqOkLc+6UG\n0tj//DSAKD2myquf3VANhuruAx5VKBZLl2d+KoLBAoGAcjCclk+6N3x61x0mE0cB\nrITfb3qqHgNvoa8Jsshd/Ak6DrI33w2SHwAqt2ec3eAQrNSDPjI4a3LJWklhya8r\n5+Hzez30LmUScWHnRt4OsgjWxaaqRoYqF/pXDDv4vg17om84VO8N5Oftf8+ChMZB\nFBro2BQP0VZ5FjWpdHXOR28=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cloud-storage@tokyo-amphora-240111.iam.gserviceaccount.com",
+  "client_id": "112247949508590004093",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloud-storage%40tokyo-amphora-240111.iam.gserviceaccount.com"
+}
