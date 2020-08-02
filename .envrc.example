@@ -4,3 +4,4 @@ export DB_HOST=
 export DB_NAME=
 export DJANGO_SETTINGS_MODULE=settings.local
 export GITHUB_TOKEN=
+export GOOGLE_APPLICATION_CREDENTIALS=GKeys.json
