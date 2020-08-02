@@ -137,13 +137,13 @@ USE_TZ = True
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-STATIC_ROOT = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = STATIC_ROOT + 'media'
-MEDIA_URL = STATIC_URL + 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 UPLOAD_ROOT = 'uploads/'
 
-DOWNLOAD_URL = STATIC_URL + "media/downloads"
-DOWNLOAD_ROOT = os.path.join(BASE_DIR, "static/media/downloads")
+DOWNLOAD_URL = 'media/downloads'
+DOWNLOAD_ROOT = os.path.join(BASE_DIR, 'media/downloads')
