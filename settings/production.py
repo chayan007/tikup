@@ -19,12 +19,12 @@ GS_STATIC_BUCKET_NAME = 'misco-static-storage'
 GS_MEDIA_BUCKET_NAME = 'misco-storage'
 
 STATIC_URL = 'https://storage.googleapis.com/{}/'.format(GS_STATIC_BUCKET_NAME)
-STATIC_ROOT = "static/"
+STATIC_ROOT = 'static/'
 
 MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_MEDIA_BUCKET_NAME)
-MEDIA_ROOT = "media/"
+MEDIA_ROOT = 'media/'
 
 UPLOAD_ROOT = 'media/uploads/'
 
-DOWNLOAD_ROOT = os.path.join(BASE_DIR, "static/media/downloads")
-DOWNLOAD_URL = STATIC_URL + "media/downloads"
+DOWNLOAD_ROOT = os.path.join(BASE_DIR, 'static/media/downloads')
+DOWNLOAD_URL = STATIC_URL + 'media/downloads'
