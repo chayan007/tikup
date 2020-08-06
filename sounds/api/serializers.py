@@ -11,5 +11,4 @@ class SoundSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sound
-        fields = ('profile__uuid', 'name',
-                  'profile', 'sound_file', 'first_video')
+        fields = ('name', 'profile', 'sound_file', 'first_video', 'copyright')
