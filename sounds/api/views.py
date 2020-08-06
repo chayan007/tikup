@@ -7,7 +7,7 @@ from sounds.controllers.uploader import SoundUploader
 from sounds.exceptions import SoundUploadException
 
 
-class SoundView(APIView):
+class SoundUploadView(APIView):
     """Handle sound basic functions."""
 
     permission_classes = (IsAuthenticated, )
