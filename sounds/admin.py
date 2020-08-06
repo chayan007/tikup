@@ -1,7 +1,14 @@
 from django.contrib import admin
 
-from sounds.models import Sound
+from sounds.models import Copyright, Sound
 from sounds.utils import *
+
+
+@admin.register(Copyright)
+class CopyrightAdmin(admin.ModelAdmin):
+    """Admin for copyright."""
+
+    list_display = ('name', 'is_verified', )
 
 
 @admin.register(Sound)
