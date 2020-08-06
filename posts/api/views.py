@@ -7,7 +7,7 @@ from posts.controllers.uploader import PostUploader
 from posts.exceptions import PostUploadException
 
 
-class SoundUploadView(APIView):
+class PostUploadView(APIView):
     """Handle post basic functions."""
 
     permission_classes = (IsAuthenticated, )
