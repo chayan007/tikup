@@ -22,7 +22,7 @@ class SoundAdmin(admin.ModelAdmin):
         return video_count(obj)
 
     list_display = (
-        'name', 'profile', 'first_video',
+        'name', 'profile', 'sound_file',
         'get_profile_photo_url',
         'get_video_count'
     )
