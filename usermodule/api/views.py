@@ -10,15 +10,15 @@ from usermodule.api.serializers import UserSerializer
 def create_auth(request):
     """Create user for Misco."""
     serialized = request.POST
-    if serialized.is_valid():
+    try:
         User.objects.create_user(
-            email=serialized.init_data['email'],
-            username=serialized.init_data['username'],
-            password=serialized.init_data['password']
+            email=serialized['email'],
+            username=serialized['username'],
+            password=serialized['password']
         )
-        return Response(serialized.data, status=status.HTTP_201_CREATED)
-    else:
-        return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'User Created !'}, status=status.HTTP_201_CREATED)
+    except BaseException as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
