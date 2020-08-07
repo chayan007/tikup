@@ -9,7 +9,7 @@ from usermodule.api.serializers import UserSerializer
 @api_view(['POST'])
 def create_auth(request):
     """Create user for Misco."""
-    serialized = UserSerializer(data=request.POST)
+    serialized = request.POST
     if serialized.is_valid():
         User.objects.create_user(
             email=serialized.init_data['email'],
@@ -18,7 +18,7 @@ def create_auth(request):
         )
         return Response(serialized.data, status=status.HTTP_201_CREATED)
     else:
-        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
