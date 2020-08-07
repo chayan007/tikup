@@ -8,7 +8,8 @@ from usermodule.api.serializers import UserSerializer
 
 @api_view(['POST'])
 def create_auth(request):
-    serialized = UserSerializer(data=request.DATA)
+    """Create user for Misco."""
+    serialized = UserSerializer(data=request.POST)
     if serialized.is_valid():
         User.objects.create_user(
             email=serialized.init_data['email'],
@@ -18,3 +19,10 @@ def create_auth(request):
         return Response(serialized.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def create_profile(request):
+    """Create profile for Misco."""
+    request_data = request.POST
+    username = request_data['username']
