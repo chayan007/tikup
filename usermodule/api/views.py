@@ -1,9 +1,10 @@
 from django.contrib.auth.models import User
+
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from usermodule.api.serializers import UserSerializer
+from usermodule.models import Profile
 
 
 @api_view(['POST'])
@@ -25,4 +26,12 @@ def create_auth(request):
 def create_profile(request):
     """Create profile for Misco."""
     request_data = request.POST
-    username = request_data['username']
+    try:
+        Profile.objects.create(
+            user__username=request_data['username']
+        )
+        return Response({
+            'message': 'Profile Created for {}!'.format(request_data['username'])
+        }, status=status.HTTP_201_CREATED)
+    except BaseException as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
