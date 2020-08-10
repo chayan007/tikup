@@ -8,3 +8,10 @@ class SoundViewSet(viewsets.ModelViewSet):
 
     queryset = Sound.objects.all()
     serializer_class = SoundSerializer
+
+
+class SoundCategoryViewSet(viewsets.ModelViewSet):
+    """Sound Category viewset for API."""
+
+    queryset = SoundCategory.objects.all()
+    serializer_class = SoundCategorySerializer
