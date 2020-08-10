@@ -7,6 +7,15 @@ from sounds.models import Sound
 from usermodule.models import Profile
 
 
+class PostCategory(BaseModel):
+    """Model to store all copyright."""
+
+    name = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(BaseModel):
     """Model for posts."""
 
@@ -16,6 +25,7 @@ class Post(BaseModel):
     video_gif = models.FileField(upload_to='uploads/gifs/', null=True, blank=True)
     description = models.TextField(null=True)
     share_pointer = models.ForeignKey('self', on_delete=models.PROTECT, null=True, blank=True)
+    category = models.ForeignKey(PostCategory, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.profile.user.get_full_name()

@@ -15,6 +15,15 @@ class Copyright(BaseModel):
         return self.name
 
 
+class SoundCategory(BaseModel):
+    """Model to store all copyright."""
+
+    name = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.name
+
+
 class Sound(BaseModel):
     """Model to store all sounds."""
 
@@ -23,6 +32,7 @@ class Sound(BaseModel):
     sound_file = models.FileField(upload_to='uploads/sounds/')
     first_video = models.FileField(upload_to='uploads/videos/', null=True, blank=True)
     copyright = models.ForeignKey(Copyright, on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(SoundCategory, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.name
