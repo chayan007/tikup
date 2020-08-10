@@ -4,6 +4,8 @@ from base.models import BaseModel
 
 from sounds.models import Sound
 
+from tracker.models import PostLocation
+
 from usermodule.models import Profile
 
 
@@ -26,6 +28,7 @@ class Post(BaseModel):
     description = models.TextField(null=True)
     share_pointer = models.ForeignKey('self', on_delete=models.PROTECT, null=True, blank=True)
     category = models.ForeignKey(PostCategory, on_delete=models.PROTECT, null=True, blank=True)
+    uploaded_location = models.ForeignKey(PostLocation, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.profile.user.get_full_name()
