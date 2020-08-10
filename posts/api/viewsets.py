@@ -8,3 +8,11 @@ class PostViewSet(viewsets.ModelViewSet):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+
+class PostCategoryViewSet(viewsets.ModelViewSet):
+    """Post Category viewset for API."""
+
+    queryset = PostCategory.objects.all()
+    serializer_class = PostCategorySerializer
+
