@@ -13,6 +13,8 @@ class PostCategory(BaseModel):
     """Model to store all copyright."""
 
     name = models.CharField(max_length=300)
+    icon = models.ImageField(upload_to='system/', null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
