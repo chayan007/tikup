@@ -6,5 +6,5 @@ from posts.api.views import PostUploadView
 
 urlpatterns = [
     path('api/models/', include(router.urls)),
-    path('api/post/upload/', PostUploadView.as_view(), name='upload_post')
+    path('api/upload/', PostUploadView.as_view(), name='upload_post')
 ]
