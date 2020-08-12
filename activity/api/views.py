@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from activity.api.serializers import CommentSerializer
-from activity.models import Comment
+from activity.models import Activity, Comment
 
 
 class PostCommentView(APIView):
@@ -44,3 +44,34 @@ class PostCommentView(APIView):
                 data={'error': str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+
+class PostLikeView(APIView):
+    """Like or unlike post depending on user."""
+
+    def post(self, request, post_id):
+        """Like or unlike the post."""
+        profile = request.user.profile
+        try:
+            like_record = Activity.objects.filter(
+                profile=profile,
+                activity_type='L',
+                post_uuid=post_id
+            )
+            if like_record.exists():
+                like_record.delete()
+                return Response(
+                    data={'mesaage': 'Post has been unliked !'},
+                    status=status.HTTP_201_CREATED
+                )
+            Activity.objects.create(
+                profile=profile,
+                activity_type='L',
+                post_uuid=post_id
+            )
+            return Response(
+                data={'mesaage': 'Post has been liked !'},
+                status=status.HTTP_201_CREATED
+            )
+        except BaseException as e:
+            return Response(data={'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

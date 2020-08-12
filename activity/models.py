@@ -9,6 +9,7 @@ from usermodule.models import Profile
 
 class Activity(BaseModel):
     """Model to record user interactions with applications."""
+
     FAVORITE = 'F'
     LIKE = 'L'
     REPORT = 'R'
