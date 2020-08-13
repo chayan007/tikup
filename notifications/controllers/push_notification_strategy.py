@@ -10,7 +10,7 @@ class PushNotificationStrategy:
         return Notification.objects.filter(
             profile=profile,
             category=self.PUSH_CONSTANT
-        ).order_by('-created_at')[:50]
+        ).order_by('-created_at')
 
     def mark_notifications(self, notification_uuids):
         """Marks notifications read."""
