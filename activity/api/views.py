@@ -75,3 +75,34 @@ class PostLikeView(APIView):
             )
         except BaseException as e:
             return Response(data={'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class PostReportView(APIView):
+    """Report or un-report post depending on user."""
+
+    def post(self, request, post_id):
+        """Report or un-report the post."""
+        profile = request.user.profile
+        try:
+            report_record = Activity.objects.filter(
+                profile=profile,
+                activity_type='R',
+                post_uuid=post_id
+            )
+            if report_record.exists():
+                report_record.delete()
+                return Response(
+                    data={'mesaage': 'Post has been un-reported !'},
+                    status=status.HTTP_201_CREATED
+                )
+            Activity.objects.create(
+                profile=profile,
+                activity_type='R',
+                post_uuid=post_id
+            )
+            return Response(
+                data={'mesaage': 'Post has been reported !'},
+                status=status.HTTP_201_CREATED
+            )
+        except BaseException as e:
+            return Response(data={'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
