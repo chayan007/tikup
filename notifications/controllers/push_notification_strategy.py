@@ -1,7 +1,7 @@
 from notifications.models import Notification
 
 
-class PushNotificationCentral:
+class PushNotificationStrategy:
 
     PUSH_CONSTANT = 2
 
@@ -16,7 +16,16 @@ class PushNotificationCentral:
         """Marks notifications read."""
         for notification_uuid in notification_uuids:
             notification = Notification.objects.get(
-                uuid=notification_uuid
+                uuid=notification_uuid,
+                category=self.PUSH_CONSTANT
             )
             notification.status = True
             notification.save()
+
+    def create_notifications(self, profile, message):
+        """Create notification for user."""
+        Notification.objects.create(
+            profile=profile,
+            message=message,
+            category=self.PUSH_CONSTANT
+        )
