@@ -6,6 +6,6 @@ from usermodule.api import router, views
 
 urlpatterns = [
     path('api/models/', include(router.urls)),
-    path('register/', views.create_auth),
-    path('follow/', views.FollowerRequestView.as_view())
+    path('register/', views.create_auth, name='register'),
+    path('follow/', views.FollowerRequestView.as_view(), name='follow')
 ]
