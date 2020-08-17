@@ -4,8 +4,7 @@ from posts.models import Post
 
 def profile_photo_url(sound_obj):
     """Get profile photo of owner."""
-    if sound_obj.profile.display_pic:
-        return sound_obj.profile.display_pic.url
+    return sound_obj.profile.display_pic
 
 
 def video_count(sound_obj):
