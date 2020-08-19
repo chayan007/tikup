@@ -14,7 +14,8 @@ class PostUploader:
                 video_gif=file['video_gif'],
                 description=details.get('description', None),
                 sound__uuid=details.get('sound_uuid', None),
-                share_pointer__uuid=details.get('share_post_uuid', None)
+                share_pointer__uuid=details.get('share_post_uuid', None),
+                category__name=details.get('category', None)
             )
             return {'message': 'Succesfully Uploaded'}
         except BaseException as e:
