@@ -1,6 +1,14 @@
 from django.contrib import admin
 
+from posts.models import *
 from posts.utils import *
+
+
+@admin.register(PostCategory)
+class PostCategoryAdmin(admin.ModelAdmin):
+    """Admin for post Category."""
+
+    list_display = ('name', 'icon', 'description')
 
 
 @admin.register(Post)
