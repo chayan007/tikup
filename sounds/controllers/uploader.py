@@ -12,6 +12,7 @@ class SoundUploader:
                 name=details.get('name', None),
                 profile=user.profile,
                 sound_file=file['sound_file'],
+                sound_cover=file.get('sound_cover', None),
                 category__name=details.get('category', None)
             )
             return {'message': 'Succesfully Uploaded'}
