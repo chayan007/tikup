@@ -32,7 +32,7 @@ class Sound(BaseModel):
     name = models.CharField(max_length=200)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     sound_file = models.FileField(upload_to='uploads/sounds/')
-    sound_cover = models.FileField(upload_to='uploads/cover/')
+    sound_cover = models.FileField(upload_to='uploads/cover/', null=True, blank=True)
     first_video = models.FileField(upload_to='uploads/videos/', null=True, blank=True)
     copyright = models.ForeignKey(Copyright, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(SoundCategory, on_delete=models.PROTECT, null=True, blank=True)

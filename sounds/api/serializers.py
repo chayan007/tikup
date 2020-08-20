@@ -20,4 +20,4 @@ class SoundSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sound
-        fields = ('name', 'profile', 'sound_file', 'first_video', 'copyright', 'category')
+        fields = ('name', 'profile', 'sound_file', 'first_video', 'copyright', 'category', 'sound_cover')
