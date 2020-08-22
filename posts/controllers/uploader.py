@@ -15,7 +15,8 @@ class PostUploader:
                 description=details.get('description', None),
                 sound__uuid=details.get('sound_uuid', None),
                 share_pointer__uuid=details.get('share_post_uuid', None),
-                category__name=details.get('category', None)
+                category__name=details.get('category', None),
+                is_pornographic=details.get('is_pornographic', False)
             )
             return {'message': 'Succesfully Uploaded'}
         except BaseException as e:
