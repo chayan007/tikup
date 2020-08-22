@@ -51,4 +51,3 @@ class PostSearchAPI(APIView):
         )
         response = Response(serializer.data, status=status.HTTP_200_OK)
         return response
-

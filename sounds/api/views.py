@@ -1,10 +1,13 @@
+from django.core.paginator import Paginator
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from sounds.api.serializers import SoundSerializer
 from sounds.controllers.uploader import SoundUploader
 from sounds.exceptions import SoundUploadException
+from sounds.models import Sound
 
 
 class SoundUploadView(APIView):
@@ -24,3 +27,26 @@ class SoundUploadView(APIView):
             ),
             status=status.HTTP_201_CREATED
         )
+
+
+class SoundSearchAPI(APIView):
+    """Search sounds."""
+
+    def get(self, request, *args, **kwargs):
+        """Get paginated search results."""
+        page_number = request.query_params.get('page_number ', 1)
+        page_size = request.query_params.get('page_size ', 50)
+        search_token = request.query_params.get('search', None)
+        if not search_token:
+            raise Exception('Search Token not provided.')
+        posts = Sound.objects.filter(
+            name__icontains=search_token
+        )
+        paginator = Paginator(posts, page_size)
+        serializer = SoundSerializer(
+            paginator.page(page_number),
+            many=True,
+            context={'request': request}
+        )
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+        return response
