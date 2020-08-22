@@ -31,6 +31,7 @@ class Post(BaseModel):
     share_pointer = models.ForeignKey('self', on_delete=models.PROTECT, null=True, blank=True)
     category = models.ForeignKey(PostCategory, on_delete=models.PROTECT, null=True, blank=True)
     uploaded_location = models.ForeignKey(PostLocation, on_delete=models.CASCADE, null=True, blank=True)
+    is_pornographic = models.BooleanField(default=False)
 
     def __str__(self):
         return self.profile.user.get_full_name()
