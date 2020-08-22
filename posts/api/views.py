@@ -35,9 +35,9 @@ class PostSearchAPI(APIView):
 
     def get(self, request, *args, **kwargs):
         """Get paginated search results."""
-        page_number = self.request.query_params.get('page_number ', 1)
-        page_size = self.request.query_params.get('page_size ', 10)
-        search_token = self.request.query_params.get('search', None)
+        page_number = request.query_params.get('page_number ', 1)
+        page_size = request.query_params.get('page_size ', 50)
+        search_token = request.query_params.get('search', None)
         if not search_token:
             raise Exception('Search Token not provided.')
         posts = Post.objects.filter(
