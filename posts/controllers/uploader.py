@@ -1,5 +1,7 @@
 from posts.models import Post
 
+from tag.controllers.tag_central import TagCentral
+
 
 class PostUploader:
     """Handle sound upload."""
@@ -8,7 +10,7 @@ class PostUploader:
     def upload(user, file, details):
         """Upload a post in model."""
         try:
-            Post.objects.create(
+            post = Post.objects.create(
                 profile=user.profile,
                 video_file=file['video_file'],
                 video_gif=file['video_gif'],
@@ -18,6 +20,7 @@ class PostUploader:
                 category__name=details.get('category', None),
                 is_pornographic=details.get('is_pornographic', False)
             )
+            TagCentral().handle_tag_cycle(post)
             return {'message': 'Succesfully Uploaded'}
         except BaseException as e:
             return {'message': 'Error Occured: {}'.format(e)}
