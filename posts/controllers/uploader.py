@@ -20,7 +20,7 @@ class PostUploader:
                 category__name=details.get('category', None),
                 is_pornographic=details.get('is_pornographic', False)
             )
-            TagCentral().handle_tag_cycle(post)
-            return {'message': 'Succesfully Uploaded'}
+            is_tags_added = TagCentral().handle_tag_cycle(post)
+            return {'message': 'Post succesfully Uploaded, hashtags added {}'.format(is_tags_added)}
         except BaseException as e:
             return {'message': 'Error Occured: {}'.format(e)}
