@@ -30,7 +30,7 @@ class PostUploadView(APIView):
         )
 
 
-class PostSearchAPI(APIView):
+class PostSearchView(APIView):
     """Search posts."""
 
     def get(self, request, *args, **kwargs):

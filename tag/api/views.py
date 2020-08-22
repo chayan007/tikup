@@ -9,8 +9,8 @@ from tag.api.serializers import HashtagSerializer
 from tag.models import Hashtag
 
 
-class SoundSearchAPI(APIView):
-    """Search tags."""
+class HashtagSearchView(APIView):
+    """Search hashtags."""
 
     def get(self, request, *args, **kwargs):
         """Get paginated search results."""

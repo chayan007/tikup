@@ -29,7 +29,7 @@ class SoundUploadView(APIView):
         )
 
 
-class SoundSearchAPI(APIView):
+class SoundSearchView(APIView):
     """Search sounds."""
 
     def get(self, request, *args, **kwargs):
