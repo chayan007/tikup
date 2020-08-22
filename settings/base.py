@@ -35,6 +35,7 @@ PROJECT_APPS = [
     'notifications',
     'posts',
     'sounds',
+    'tag',
     'tracker',
     'usermodule',
     'verification'
