@@ -10,6 +10,7 @@ urlpatterns = [
     path('users/', include('usermodule.urls'), name='users'),
     path('sounds/', include('sounds.urls'), name='sounds'),
     path('posts/', include('posts.urls'), name='posts'),
+    path('tags/', include('tag.urls'), name='tags'),
     path('activities/', include('activity.urls'), name='activities'),
     path('auth/token/', obtain_auth_token, name='api_token_auth')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
