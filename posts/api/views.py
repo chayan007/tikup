@@ -42,6 +42,8 @@ class PostSearchView(APIView):
             raise Exception('Search Token not provided.')
         posts = Post.objects.filter(
             description__icontains=search_token
+        ).exclude(
+            is_pornographic=True
         )
         paginator = Paginator(posts, page_size)
         serializer = PostSerializer(
