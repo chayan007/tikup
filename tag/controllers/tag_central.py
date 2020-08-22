@@ -26,8 +26,11 @@ class TagCentral:
 
     def handle_tag_cycle(self, post):
         """Handle all tags."""
-        tags = self.extract_tags(post.description)
-        if tags:
+        try:
+            tags = self.extract_tags(post.description)
             for tag in tags:
                 self.store_all_tags(tag)
                 self.link_all_tags_to_post(tag, post)
+            return True
+        except BaseException as e:
+            return False
