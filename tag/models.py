@@ -8,7 +8,7 @@ from posts.models import Post
 class Hashtag(BaseModel):
     """Model for hashtags."""
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     views = models.IntegerField(default=0)
     is_favorite = models.BooleanField(default=False)
 
