@@ -13,7 +13,7 @@ class PostUploader:
         """Upload a post in model."""
         try:
             original_post = None
-            if details['share_post_uuid']:
+            if details.get('share_post_uuid', None):
                 original_post = Post.objects.get(uuid=details.get('share_post_uuid'))
             post = Post.objects.create(
                 profile=user.profile,
