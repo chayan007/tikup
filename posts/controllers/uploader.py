@@ -4,7 +4,7 @@ from tag.controllers.tag_central import TagCentral
 
 
 class PostUploader:
-    """Handle sound upload."""
+    """Handle post upload."""
 
     @staticmethod
     def upload(user, file, details):
