@@ -1,4 +1,6 @@
-from posts.models import Post
+from posts.models import Post, PostCategory
+
+from sounds.models import Sound
 
 from tag.controllers.tag_central import TagCentral
 
@@ -15,9 +17,9 @@ class PostUploader:
                 video_file=file['video_file'],
                 video_gif=file['video_gif'],
                 description=details.get('description', None),
-                sound__uuid=details.get('sound_uuid', None),
-                share_pointer__uuid=details.get('share_post_uuid', None),
-                category__name=details.get('category', None),
+                sound=Sound.objects.get(uuid=details.get('sound_uuid', None)),
+                share_pointer=Post.objects.get(uuid=details.get('share_post_uuid', None)),
+                category=PostCategory(name=details.get('category', None)),
                 is_pornographic=details.get('is_pornographic', False)
             )
             is_tags_added = TagCentral().handle_tag_cycle(post)
