@@ -21,7 +21,7 @@ class TagCentral:
         """Link one tag to a post."""
         HashtagLink.objects.create(
             post=post,
-            hashtag__name=tag
+            hashtag=Hashtag.objects.get(name=tag)
         )
 
     def handle_tag_cycle(self, post):
