@@ -11,11 +11,14 @@ schema_view = get_schema_view(
       title="Misco API",
       default_version='v1',
       description=('All the APIs are documented here. This application covers all important aspects '
-                   'of audio/video and can be termed as an enhanced clone of Tiktok. This project'
-                   'is completely maintained by Chayan Datta.'),
+                   'of audio/video and can be termed as an enhanced clone of Tiktok. This project '
+                   'is completely maintained by Chayan Datta. Many user tracking features are implemented'
+                   ' to create better marketing decisions and UX. This is highly scalable application'
+                   ' deployed in GCP. The growing market of music industry will gain huge attention '
+                   'without any caste/race/poverty background.'),
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="chayandatta007@gmail.com"),
-      license=openapi.License(name="BSD License"),
+      license=openapi.License(name="Licensed to Chayan Datta (Developer)"),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
