@@ -31,6 +31,7 @@ class Sound(BaseModel):
 
     name = models.CharField(max_length=200)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    cover_pic = models.ImageField(upload_to='uploads/sounds_covers/', null=True, blank=True)
     sound_file = models.FileField(upload_to='uploads/sounds/')
     sound_cover = models.FileField(upload_to='uploads/cover/', null=True, blank=True)
     first_video = models.FileField(upload_to='uploads/videos/', null=True, blank=True)
