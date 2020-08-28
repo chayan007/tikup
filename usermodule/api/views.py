@@ -12,7 +12,13 @@ from usermodule.models import Profile
 
 @api_view(['POST'])
 def create_auth(request):
-    """Create user for Misco."""
+    """
+    Create user for Misco.
+
+    request.POST['email']: str
+    request.POST['username']: str
+    request.POST['password']: password (plain string -> hashing in backend)
+    """
     serialized = request.POST
     try:
         user_obj = User.objects.create_user(
