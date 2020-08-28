@@ -23,7 +23,7 @@ class HashtagSearchView(APIView):
         2. page_size [int, default 50]
         3. search [str]
 
-        eg: misco.com/tags/search/?search=sunny&page_number=3
+        misco.com/tags/search/?search=sunny&page_number=3
         """
         page_number = request.query_params.get('page_number ', 1)
         page_size = request.query_params.get('page_size ', 50)

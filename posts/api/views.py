@@ -44,7 +44,7 @@ class PostSearchView(APIView):
         2. page_size [int, default 50]
         3. search [str]
 
-        eg: misco.com/post/search/?search=martial%20arts&page_size=100
+        misco.com/post/search/?search=martial%20arts&page_size=100
         """
         page_number = request.query_params.get('page_number ', 1)
         page_size = request.query_params.get('page_size ', 50)

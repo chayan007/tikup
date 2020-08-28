@@ -43,7 +43,7 @@ class SoundSearchView(APIView):
         2. page_size [int, default 50]
         3. search [str] -> maps with the song name
 
-        eg: misco.com/sounds/api/search/?search=zaalima&page_number=1
+        misco.com/sounds/api/search/?search=zaalima&page_number=1
         """
         page_number = request.query_params.get('page_number ', 1)
         page_size = request.query_params.get('page_size ', 50)
