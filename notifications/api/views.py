@@ -21,9 +21,16 @@ class PushNotificationsView(APIView):
             status=status.HTTP_200_OK
         )
 
-    def post(self, request, notification_uuids):
-        """Mark all notifications read."""
-        PushNotificationStrategy().mark_notifications(notification_uuids)
+    def post(self, request):
+        """
+        Mark all notifications read.
+
+        request.POST['notification_uuids'] : [str, str, str]
+            eg: ['sd034bf-1237sb9s-asfb2341', 'bcd125-gf433s-cer521']
+        """
+        PushNotificationStrategy().mark_notifications(
+            request.POST['notification_uuids']
+        )
         return Response(
             data={'message': 'All notifications are marked read !'}
         )

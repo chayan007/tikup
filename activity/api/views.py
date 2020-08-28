@@ -27,13 +27,17 @@ class PostCommentView(APIView):
         )
 
     def post(self, request, post_id):
-        """Add comment to a post."""
+        """
+        Add comment to a post.
+
+        request.POST['comment'] : str
+            eg: 'The post is very nice.'
+        """
         try:
             Comment.objects.create(
                 comment=request.POST['comment'],
                 post__uuid=post_id,
                 profile=request.user.profile,
-                reply=request.POST['reply']
             )
             return Response(
                 data={'message': 'Comment Added !'},
