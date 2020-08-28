@@ -34,7 +34,18 @@ class PostSearchView(APIView):
     """Search posts."""
 
     def get(self, request, *args, **kwargs):
-        """Get paginated search results."""
+        """
+        Get paginated post search results.
+
+        <BASE_URL>/<endpoint>/[..query_params]
+
+        Available query_params options:
+        1. page_number [int, default 1]
+        2. page_size [int, default 50]
+        3. search [str]
+
+        eg: misco.com/post/search/?search=martial%20arts&page_size=100
+        """
         page_number = request.query_params.get('page_number ', 1)
         page_size = request.query_params.get('page_size ', 50)
         search_token = request.query_params.get('search', None)
