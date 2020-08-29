@@ -5,7 +5,7 @@ from tag.models import Hashtag
 
 
 class HashtagSerializer(ModelSerializer):
-    """Tag serializer model class."""
+    """Tag api model class."""
 
     class Meta:
         model = Hashtag

@@ -2,7 +2,7 @@
 from favorites.models import *
 
 
-class FavoriteCentral:
+class MarkFavorite:
     """Handle all favorite units."""
 
     def __init__(self):
@@ -53,3 +53,30 @@ class FavoriteCentral:
             return True
         return False
 
+
+class FavoriteCentral:
+    """Get all favorites."""
+
+    def __init__(self):
+        self.profile = ''
+
+    def list_post(self):
+        """List all posts for the user."""
+        return FavoritePost.objects.filter(
+            profile=self.profile
+        )
+
+    def list_sound(self):
+        """List all sounds for the user."""
+        return FavoriteSound.objects.filter(
+            profile=self.profile
+        )
+
+    def show(self, profile, model_marker):
+        """Get all favorites for an user."""
+        self.profile = profile
+        if model_marker.lower() == 'post':
+            return self.list_post()
+        if model_marker.lower() == 'sound':
+            return self.list_sound()
+        raise Exception('Please supply proper favorite marker.')
