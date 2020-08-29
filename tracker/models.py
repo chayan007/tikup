@@ -9,6 +9,10 @@ class PostLocation(BaseModel):
     ip_address = models.GenericIPAddressField()
     state = models.CharField(max_length=200, null=True, blank=True)
     country = models.CharField(max_length=200, null=True, blank=True)
+    latitude = models.CharField(max_length=30, null=True, blank=True)
+    longitude = models.CharField(max_length=30, null=True, blank=True)
+    postal = models.CharField(max_length=20, null=True, blank=True)
+    city = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.ip_address
