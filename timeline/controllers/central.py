@@ -15,7 +15,7 @@ class TimelineCentral:
             location = get_ip_details(ip_address)
             return location.country_name
 
-    def non_pornographic_posts(self, request):
+    def posts(self, request):
         """Send all non-pornographic posts."""
         country = self.get_country(request)
         qs = {
