@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 PROJECT_APPS = [
     'activity',
     'base',
+    'favorites',
     'notifications',
     'posts',
     'sounds',
