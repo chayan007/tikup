@@ -15,5 +15,6 @@ urlpatterns = [
     path('tags/', include('tag.urls'), name='tags'),
     path('activities/', include('activity.urls'), name='activities'),
     path('notifications/', include('notifications.urls'), name='notifications'),
+    path('timeline/', include('timeline.urls'), name='timeline'),
     path('auth/token/', obtain_auth_token, name='api_token_auth')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + doc_urls
