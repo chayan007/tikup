@@ -15,8 +15,8 @@ def get_ip_address(request):
 
 def get_ip_details(ip_address=None):
     """Get location based information from IP Address."""
-	ip_info_token = getattr(settings, "IPINFO_TOKEN", None)
-	ip_info_settings = getattr(settings, "IPINFO_SETTINGS", {})
+    ip_info_token = getattr(settings, "IPINFO_TOKEN", None)
+    ip_info_settings = getattr(settings, "IPINFO_SETTINGS", {})
     ip_data = ipinfo.getHandler(
         ip_info_token,
         **ip_info_settings

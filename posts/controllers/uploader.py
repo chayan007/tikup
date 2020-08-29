@@ -1,15 +1,41 @@
+from base.utils import (
+    get_ip_address,
+    get_ip_details
+)
+
 from posts.models import Post, PostCategory
 
 from sounds.models import Sound
 
 from tag.controllers.tag_central import TagCentral
 
+from tracker.models import PostLocation
+
 
 class PostUploader:
     """Handle post upload."""
 
     @staticmethod
-    def upload(user, file, details):
+    def handle_location(request):
+        """Handle location from where post was uploaded."""
+        ip_address = get_ip_address(request)
+        if ip_address:
+            location = get_ip_details(ip_address)
+            try:
+                PostLocation.objects.create(
+                    ip_address=ip_address,
+                    state=location.get('region'),
+                    country=location.get('country_name'),
+                    latitude=location.get('latitude'),
+                    longitude=location.get('longitude'),
+                    postal_code=location.get('postal'),
+                    city=location.get('city')
+                )
+            except BaseException:
+                return False
+        return True
+
+    def upload(self, user, file, details, request):
         """Upload a post in model."""
         try:
             original_post = category = None
@@ -28,6 +54,14 @@ class PostUploader:
                 is_pornographic=details.get('is_pornographic', False)
             )
             is_tags_added = TagCentral().handle_tag_cycle(post)
-            return {'message': 'Post succesfully Uploaded, hashtags added {}'.format(is_tags_added)}
+            is_location_added = self.handle_location(request)
+            return {
+                'message': ('Post successfully Uploaded, '
+                            'hashtags added {},'
+                            'location added {}').format(
+                    is_tags_added,
+                    is_location_added
+                )
+            }
         except BaseException as e:
             return {'message': 'Error Occured: {}'.format(e)}

@@ -24,7 +24,8 @@ class PostUploadView(APIView):
             data=PostUploader().upload(
                 request.user,
                 request.FILES,
-                request.POST
+                request.POST,
+                request
             ),
             status=status.HTTP_201_CREATED
         )
