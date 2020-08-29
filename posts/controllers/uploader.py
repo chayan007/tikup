@@ -19,17 +19,17 @@ class PostUploader:
     def handle_location(request):
         """Handle location from where post was uploaded."""
         ip_address = get_ip_address(request)
-        if ip_address:
+        if ip_address or ip_address == '127.0.0.1':
             location = get_ip_details(ip_address)
             try:
                 PostLocation.objects.create(
                     ip_address=ip_address,
-                    state=location.get('region'),
-                    country=location.get('country_name'),
-                    latitude=location.get('latitude'),
-                    longitude=location.get('longitude'),
-                    postal_code=location.get('postal'),
-                    city=location.get('city')
+                    state=location.region,
+                    country=location.country_name,
+                    latitude=location.latitude,
+                    longitude=location.longitude,
+                    postal_code=location.postal,
+                    city=location.city
                 )
             except BaseException:
                 return False
