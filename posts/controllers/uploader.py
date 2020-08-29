@@ -22,7 +22,7 @@ class PostUploader:
         if ip_address or ip_address == '127.0.0.1':
             location = get_ip_details(ip_address)
             try:
-                PostLocation.objects.create(
+                loc = PostLocation.objects.create(
                     ip_address=ip_address,
                     state=location.region,
                     country=location.country_name,
@@ -31,9 +31,9 @@ class PostUploader:
                     postal_code=location.postal,
                     city=location.city
                 )
+                return loc
             except BaseException:
-                return False
-        return True
+                return
 
     def upload(self, user, file, details, request):
         """Upload a post in model."""
@@ -43,6 +43,8 @@ class PostUploader:
                 original_post = Post.objects.get(uuid=details.get('share_post_uuid'))
             if details.get('category', None):
                 category = PostCategory.objects.get(name=details.get('category', None))
+            location = self.handle_location(request)
+            is_location_added = True if location else False
             post = Post.objects.create(
                 profile=user.profile,
                 video_file=file['video_file'],
@@ -51,10 +53,10 @@ class PostUploader:
                 sound=Sound.objects.get(uuid=details.get('sound_uuid')),
                 share_pointer=original_post,
                 category=category,
-                is_pornographic=details.get('is_pornographic', False)
+                is_pornographic=details.get('is_pornographic', False),
+                location=location
             )
             is_tags_added = TagCentral().handle_tag_cycle(post)
-            is_location_added = self.handle_location(request)
             return {
                 'message': ('Post successfully Uploaded, '
                             'hashtags added {},'
