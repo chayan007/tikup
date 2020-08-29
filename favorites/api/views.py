@@ -12,7 +12,15 @@ class FavoriteView(APIView):
     """Handle all favorite functions."""
 
     def post(self, request, model_marker, object_id):
-        """Mark or unmark a favorite post or sound."""
+        """
+        Mark or unmark a favorite post or sound.
+
+        There are two options for model_marker:
+        1. post
+        2. sound
+
+        object_id refers to the uuid of the respective model.
+        """
         is_favorite_marked = MarkFavorite().mark(
             request.user.profile,
             model_marker,
@@ -28,7 +36,15 @@ class FavoriteView(APIView):
         )
 
     def get(self, request, model_marker):
-        """Get all favorites for an user."""
+        """
+        Get all favorites for an user.
+
+        There are two options for model_marker:
+        1. post
+        2. sound
+
+        It will list the favorites based on your model selection.
+        """
         page_number = request.query_params.get('page_number ', 1)
         page_size = request.query_params.get('page_size ', 100)
         instances = FavoriteCentral().show(
