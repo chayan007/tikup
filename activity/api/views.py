@@ -4,8 +4,28 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from activity.api.serializers import CommentSerializer
+from activity.api.serializers import NestedCommentSerializer
 from activity.models import Activity, Comment
+
+
+class PostReplyView(APIView):
+    """Reply on a particular comment of a post."""
+
+    def post(self, request, comment_id):
+        """Reply on a comment."""
+        try:
+            comment = Comment.objects.get(uuid=comment_id)
+            Comment.objects.create(
+                comment=request.POST['comment'],
+                reply=comment,
+                profile=request.user.profile,
+            )
+            return Response(
+                data={'mesaage': 'Reply has been created !'},
+                status=status.HTTP_201_CREATED
+            )
+        except BaseException as e:
+            return Response(data={'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PostCommentView(APIView):
@@ -14,12 +34,13 @@ class PostCommentView(APIView):
     permission_classes = (IsAuthenticated, )
 
     def get(self, request, post_id):
-        """Get comment for a single post."""
+        """Get paginated comment for a single post."""
         comments = Comment.objects.filter(
             post__uuid=post_id
         )
-        serialized_comments = CommentSerializer(
-            comments, many=True
+        serialized_comments = NestedCommentSerializer(
+            comments,
+            many=True
         ).data
         return Response(
             data=serialized_comments,

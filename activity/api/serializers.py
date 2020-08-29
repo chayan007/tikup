@@ -24,8 +24,8 @@ class NestedCommentSerializer(serializers.ModelSerializer):
 
     post = PostSerializer()
     profile = ProfileSerializer()
-    reply = CommentSerializer()
+    reply = CommentSerializer(many=True)
 
     class Meta:
         model = Comment
-        fields = ('post', 'profile', 'comment', 'reply')
+        fields = ('uuid', 'post', 'profile', 'comment', 'reply')
