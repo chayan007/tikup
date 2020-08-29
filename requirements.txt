@@ -23,6 +23,8 @@ googleapis-common-protos==1.52.0
 idna==2.10
 inflection==0.5.1
 ipdb==0.13.3
+ipinfo==3.0.0
+ipinfo-django==1.1.0
 ipython==7.17.0
 ipython-genutils==0.2.0
 itypes==1.2.0
