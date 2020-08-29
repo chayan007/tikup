@@ -50,10 +50,10 @@ class SoundSearchView(APIView):
         search_token = request.query_params.get('search', None)
         if not search_token:
             raise Exception('Search Token not provided.')
-        posts = Sound.objects.filter(
+        sounds = Sound.objects.filter(
             name__icontains=search_token
         )
-        paginator = Paginator(posts, page_size)
+        paginator = Paginator(sounds, page_size)
         serializer = SoundSerializer(
             paginator.page(page_number),
             many=True,
@@ -61,3 +61,22 @@ class SoundSearchView(APIView):
         )
         response = Response(serializer.data, status=status.HTTP_200_OK)
         return response
+
+
+class SoundCategorySearch(APIView):
+    """Get sound based on category."""
+
+    def get(self, request, category_id):
+        """Get sounds based on category."""
+        page_number = request.query_params.get('page_number ', 1)
+        page_size = request.query_params.get('page_size ', 50)
+        sounds = Sound.objects.filter(
+            category__uuid=category_id
+        )
+        paginator = Paginator(sounds, page_size)
+        serializer = SoundSerializer(
+            paginator.page(page_number),
+            many=True,
+            context={'request': request}
+        )
+        return Response(serializer.data, status=status.HTTP_200_OK)
