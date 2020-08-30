@@ -1,6 +1,8 @@
 """Get all timeline related functions."""
 from base.utils import get_ip_address, get_ip_details
 
+from favorites.models import UserInterest
+
 from posts.models import Post
 
 from usermodule.models import FollowerMap
@@ -18,6 +20,12 @@ class TimelineCentral:
     def posts(self, request):
         """Send all non-pornographic posts."""
         country = self.get_country(request)
+        categories_selected = UserInterest.objects.filter(
+            profile=request.user.profile
+        )
+        following = FollowerMap.objects.filter(
+            follower=request.user.profile
+        )
         qs = {
             'is_pornographic': False,
         }
