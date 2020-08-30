@@ -76,3 +76,30 @@ class FavoriteView(APIView):
             serializer.data,
             status=status.HTTP_200_OK
         )
+
+
+class UserInterestView(APIView):
+    """Handle API related interests."""
+
+    def post(self, request, *args, **kwargs):
+        """
+        Add user interests to filter posts.
+
+        request.POST['category_ids'] -> [str, str, ..]
+        """
+        category_ids = request.POST['category_ids']
+        try:
+            for category_id in category_ids:
+                UserInterest.objects.create(
+                    profile=request.user.profile,
+                    category=PostCategory.objects.get(uuid=category_id)
+                )
+            return Response(
+                data={'message': 'All categories are stored as interest.'},
+                status=status.HTTP_201_CREATED
+            )
+        except BaseException as e:
+            return Response(
+                data={'error': str(e)},
+                status=status.HTTP_417_EXPECTATION_FAILED
+            )
