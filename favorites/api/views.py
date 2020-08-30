@@ -68,7 +68,10 @@ class FavoriteView(APIView):
                 context={'request': request}
             )
         if not serializer:
-            raise Exception('Please pass proper Model marker for favorites retrieval.')
+            return Response(
+                data={'error': 'Please pass proper Model marker for favorites retrieval.'},
+                status=status.HTTP_417_EXPECTATION_FAILED
+            )
         return Response(
             serializer.data,
             status=status.HTTP_200_OK
