@@ -2,7 +2,7 @@ from django.db import models
 
 from base.models import BaseModel
 
-from posts.models import Post
+from posts.models import Post, PostCategory
 
 from sounds.models import Sound
 
@@ -35,3 +35,20 @@ class FavoritePost(BaseModel):
             self.profile.user.username,
             self.post.description[:20]
         )
+
+
+class UserInterest(BaseModel):
+    """Store all user interests for the posts."""
+
+    category = models.ForeignKey(PostCategory, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        """Representation schema."""
+        return '{} has interest in {}'.format(
+            self.profile.user.username,
+            self.category.name
+        )
+
+    class Meta:
+        unique_together = ('profile', 'category',)
