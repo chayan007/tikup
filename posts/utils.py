@@ -1,5 +1,5 @@
 """Utility functions ofr Pospost."""
-from activity.models import Activity
+from activity.models import Activity, Comment
 
 from posts.models import Post
 
@@ -7,13 +7,14 @@ from posts.models import Post
 def likes_count(post_obj):
     """Return likes count."""
     return Activity.objects.filter(
-        post=post_obj
+        post=post_obj,
+        activity_type='L'
     ).count()
 
 
 def comments_count(post_obj):
     """Return comments count."""
-    return Activity.objects.filter(
+    return Comment.objects.filter(
         post=post_obj
     ).count()
 
