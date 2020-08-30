@@ -7,6 +7,8 @@ from rest_framework.views import APIView
 from activity.api.serializers import NestedCommentSerializer
 from activity.models import Activity, Comment
 
+from posts.models import Post
+
 
 class PostReplyView(APIView):
     """Reply on a particular comment of a post."""
@@ -57,7 +59,7 @@ class PostCommentView(APIView):
         try:
             Comment.objects.create(
                 comment=request.POST['comment'],
-                post__uuid=post_id,
+                post=Post.objects.get(uuid=post_id),
                 profile=request.user.profile,
             )
             return Response(
