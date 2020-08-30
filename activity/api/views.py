@@ -83,7 +83,7 @@ class PostLikeView(APIView):
             like_record = Activity.objects.filter(
                 profile=profile,
                 activity_type='L',
-                post_uuid=post_id
+                post__uuid=post_id
             )
             if like_record.exists():
                 like_record.delete()
