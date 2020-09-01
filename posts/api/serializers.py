@@ -12,7 +12,7 @@ class PostCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PostCategory
-        fields = ('name', 'icon', 'description')
+        fields = ('uuid', 'name', 'icon', 'description')
 
 
 class PostSerializer(serializers.ModelSerializer):
