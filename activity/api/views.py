@@ -69,7 +69,7 @@ class PostCommentView(APIView):
         except BaseException as e:
             return Response(
                 data={'error': str(e)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                status=status.HTTP_400_BAD_REQUEST
             )
 
 
@@ -88,7 +88,7 @@ class PostLikeView(APIView):
             if like_record.exists():
                 like_record.delete()
                 return Response(
-                    data={'mesaage': 'Post has been unliked !'},
+                    data={'message': 'Post has been unliked !'},
                     status=status.HTTP_201_CREATED
                 )
             Activity.objects.create(
