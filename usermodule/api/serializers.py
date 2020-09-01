@@ -17,6 +17,6 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('user', 'dob', 'country',
+        fields = ('uuid', 'user', 'dob', 'country',
                   'is_verified', 'is_private',
                   'display_pic')
