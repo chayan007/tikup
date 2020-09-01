@@ -9,6 +9,7 @@ from posts.api.serializers import PostSerializer
 from posts.controllers.uploader import PostUploader
 from posts.exceptions import PostUploadException
 from posts.models import Post
+from posts.utils import comments_count, likes_count, share_count
 
 
 class PostUploadView(APIView):
@@ -65,3 +66,36 @@ class PostSearchView(APIView):
         )
         response = Response(serializer.data, status=status.HTTP_200_OK)
         return response
+
+
+class PostMetricsView(APIView):
+    """Get all post metrics."""
+
+    def get(self, request, indicator, post_id):
+        """
+        Get post metrics based on the indicator passed.
+
+        Types of indicators available:
+        1. likes
+        2. comments
+        3. shares
+
+        The count of the indicator will be returned.
+        """
+        indicator = indicator.lower()
+        post = Post.objects.get(uuid=post_id)
+        if indicator == 'likes':
+            count = likes_count(post)
+        elif indicator == 'comments':
+            count = comments_count(post)
+        elif indicator == 'shares':
+            count = share_count(post)
+        else:
+            return Response(
+                data={'error': 'Proper indicator is not supplied.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        return Response(
+            data={'count': count},
+            status=status.HTTP_200_OK
+        )

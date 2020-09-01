@@ -10,7 +10,7 @@ class SoundCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SoundCategory
-        fields = ('name', 'icon', 'description')
+        fields = ('uuid', 'name', 'icon', 'description')
 
 
 class SoundSerializer(serializers.ModelSerializer):
