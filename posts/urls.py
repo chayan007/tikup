@@ -20,5 +20,5 @@ urlpatterns = [
     path('api/sound/<sound_id>', SoundBasedPostView.as_view(), name='post_by_sound'),
     path('api/posts/liked/<username>', UserLikedPostView.as_view(), name='user_liked_posts'),
     path('api/posts/<username>', UserPostView.as_view(), name='user_posts'),
-    path('api/posts/trending/', TrendingTagPostView.as_view(), name='trending_posts')
+    path('api/trending/', TrendingTagPostView.as_view(), name='trending_posts')
 ]

@@ -83,7 +83,7 @@ class SoundCategorySearch(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class TopSoundView(APIView):
+class TrendingSoundCategorisedView(APIView):
     """Get tops songs."""
 
     def get(self, request, *args, **kwargs):

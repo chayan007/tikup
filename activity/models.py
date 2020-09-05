@@ -4,6 +4,8 @@ from base.models import BaseModel
 
 from posts.models import Post
 
+from sounds.models import Sound
+
 from usermodule.models import Profile
 
 
@@ -62,3 +64,29 @@ class CommentLike(BaseModel):
 
     class Meta:
         unique_together = ('profile', 'comment',)
+
+
+class SoundView(BaseModel):
+    """Record all views in sounds."""
+
+    sound = models.ForeignKey(Sound, on_delete=models.PROTECT)
+    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return '{} has viewed {}'.format(
+            self.profile.user.username,
+            self.sound.name
+        )
+
+
+class PostView(BaseModel):
+    """Record all views in posts."""
+
+    post = models.ForeignKey(Post, on_delete=models.PROTECT)
+    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return '{} has viewed {}'.format(
+            self.profile.user.username,
+            self.post.description[:20]
+        )
