@@ -107,7 +107,9 @@ class SoundBasedPostView(APIView):
 
     def get(self, request, sound_id):
         """Return all posts by same sound."""
-        posts = Post.objects.annotate(
+        posts = Post.objects.filter(
+            sound__uuid=sound_id
+        ).annotate(
             num_likes=Count('activity')
         ).order_by('-num_likes')[:100]
         serializer = PostSerializer(
@@ -143,7 +145,9 @@ class UserLikedPostView(APIView):
 
     def get(self, request, username):
         """Get all posts liked by the user."""
-        posts = Post.objects.annotate(
+        posts = Post.objects.filter(
+            profile__user__username=username
+        ).annotate(
             num_likes=Count('activity')
         ).order_by('-created_at')
         serialized = PostSerializer(
