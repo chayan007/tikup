@@ -9,6 +9,8 @@ from activity.models import Activity, Comment
 
 from posts.models import Post
 
+from usermodule.models import FollowerMap
+
 
 class PostReplyView(APIView):
     """Reply on a particular comment of a post."""
@@ -37,9 +39,21 @@ class PostCommentView(APIView):
 
     def get(self, request, post_id):
         """Get paginated comment for a single post."""
-        comments = Comment.objects.filter(
-            post__uuid=post_id
+        follower_uuids = FollowerMap.objects.get(
+            follower=request.user.profile
+        ).values_list(
+            'profile__uuid', flat=True
         )
+        follower_comment = Comment.objects.filter(
+            post__uuid=post_id,
+            profile__in=follower_uuids
+        )
+        non_follower_comment = Comment.objects.filter(
+            post__uuid=post_id
+        ).exclude(
+            profile__in=follower_uuids
+        )
+        comments = follower_comment | non_follower_comment
         serialized_comments = NestedCommentSerializer(
             comments,
             many=True
