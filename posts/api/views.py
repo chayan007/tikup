@@ -12,6 +12,8 @@ from posts.exceptions import PostUploadException
 from posts.models import Post
 from posts.utils import comments_count, likes_count, share_count
 
+from tag.models import Hashtag, HashtagLink
+
 
 class PostUploadView(APIView):
     """Handle post basic functions."""
@@ -156,5 +158,32 @@ class UserLikedPostView(APIView):
         )
         return Response(
             serialized.data,
+            status=status.HTTP_200_OK
+        )
+
+
+class TrendingTagPostView(APIView):
+    """Display all trending posts based on tags."""
+
+    def get(self, request, *args, **kwargs):
+        """Get all trending posts based on tags."""
+        popular_hashtags = Hashtag.objects.all().order_by('-count')[:20]
+        response = {}
+        for hashtag in popular_hashtags:
+            posts = Post.objects.filter(
+                uuid__in=HashtagLink.objects.filter(
+                    hashtag=hashtag
+                ).values_list(
+                    'post__uuid', flat=True
+                )
+            ).annotate(
+                num_likes=Count('activity')
+            ).order_by('-num_likes')[:10]
+            response[hashtag.name] = PostSerializer(
+                posts,
+                many=True
+            ).data
+        return Response(
+            data=response,
             status=status.HTTP_200_OK
         )

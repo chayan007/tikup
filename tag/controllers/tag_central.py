@@ -15,7 +15,7 @@ class TagCentral:
     @staticmethod
     def increment_tag_count(tag_obj):
         """Increment count of tag."""
-        tag_obj.count += 1
+        tag_obj.views += 1
         tag_obj.save()
 
     @staticmethod
