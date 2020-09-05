@@ -22,18 +22,29 @@ class TimelineCentral:
         country = self.get_country(request)
         categories_selected = UserInterest.objects.filter(
             profile=request.user.profile
+        ).values_list(
+            'category__uuid', flat=True
         )
-        following = FollowerMap.objects.filter(
+        following_uuids = FollowerMap.objects.filter(
             follower=request.user.profile
+        ).values_list(
+            'profile__uuid', flat=True
         )
         qs = {
             'is_pornographic': False,
         }
         if country:
             qs['uploaded_location__country'] = country
-        posts = Post.objects.filter(
+        follower_posts = Post.objects.filter(
+            category__uuid__in=categories_selected,
+            profile__uuid__in=following_uuids,
             **qs
         ).order_by(
             '-created_at',
+        )
+        posts = follower_posts | Post.objects.all().exclude(
+            uuid__in=follower_posts.values_list(
+                'uuid', flat=True
+            )
         )
         return posts
