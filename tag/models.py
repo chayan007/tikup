@@ -11,6 +11,7 @@ class Hashtag(BaseModel):
     name = models.CharField(max_length=100, unique=True)
     views = models.IntegerField(default=0)
     is_favorite = models.BooleanField(default=False)
+    count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
