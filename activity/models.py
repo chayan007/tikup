@@ -46,3 +46,16 @@ class Comment(BaseModel):
             self.profile.user.get_full_name(),
             self.comment[:100]
         )
+
+
+class CommentLike(BaseModel):
+    """Store likes for every comment."""
+
+    comment = models.ForeignKey(Comment, on_delete=models.PROTECT)
+    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return '{} has liked {}'.format(
+            self.profile.user.get_full_name(),
+            self.comment.comment
+        )

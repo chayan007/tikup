@@ -1,7 +1,7 @@
 """Serializer for models."""
 from rest_framework import serializers
 
-from activity.models import Comment
+from activity.models import Comment, CommentLike
 
 from posts.api.serializers import PostSerializer
 
@@ -24,7 +24,14 @@ class NestedCommentSerializer(serializers.ModelSerializer):
 
     profile = ProfileSerializer()
     reply = CommentSerializer(many=True)
+    likes = serializers.SerializerMethodField()
+
+    def get_likes(self, obj):
+        """Return count of likes."""
+        return CommentLike.objects.filter(
+            comment=obj
+        ).count()
 
     class Meta:
         model = Comment
-        fields = ('uuid', 'profile', 'comment', 'reply', 'created_at')
+        fields = ('uuid', 'profile', 'comment', 'reply', 'likes', 'created_at')
