@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Count
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -7,7 +8,7 @@ from rest_framework.views import APIView
 from sounds.api.serializers import SoundSerializer
 from sounds.controllers.uploader import SoundUploader
 from sounds.exceptions import SoundUploadException
-from sounds.models import Sound
+from sounds.models import Sound, SoundCategory
 
 
 class SoundUploadView(APIView):
@@ -80,3 +81,26 @@ class SoundCategorySearch(APIView):
             context={'request': request}
         )
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TopSoundView(APIView):
+    """Get tops songs."""
+
+    def get(self, request, *args, **kwargs):
+        """Get top sounds on basis of category."""
+        categories = SoundCategory.objects.all()
+        response = {}
+        for category in categories:
+            sounds = Sound.objects.filter(
+                category=category
+            ).annotate(
+                post=Count('post')
+            ).order_by('-post')[:10]
+            response[category.name] = SoundSerializer(
+                sounds,
+                many=True
+            )
+        return Response(
+            data=response,
+            status=status.HTTP_200_OK
+        )
