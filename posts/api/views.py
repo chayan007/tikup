@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Count
 
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -97,5 +98,23 @@ class PostMetricsView(APIView):
             )
         return Response(
             data={'count': count},
+            status=status.HTTP_200_OK
+        )
+
+
+class SoundBasedPostView(APIView):
+    """Return all posts by same sound."""
+
+    def get(self, request, sound_id):
+        """Return all posts by same sound."""
+        posts = Post.objects.annotate(
+            num_likes=Count('activity')
+        ).order_by('-num_likes')[:100]
+        serializer = PostSerializer(
+            posts,
+            many=True
+        )
+        return Response(
+            serializer.data,
             status=status.HTTP_200_OK
         )
