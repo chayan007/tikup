@@ -46,7 +46,7 @@ class PostCommentView(APIView):
         )
         follower_comment = Comment.objects.filter(
             post__uuid=post_id,
-            profile__in=follower_uuids
+            profile__uuid__in=follower_uuids
         )
         non_follower_comment = Comment.objects.filter(
             post__uuid=post_id
