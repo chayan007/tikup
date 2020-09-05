@@ -170,5 +170,5 @@ class LikeCommentView(APIView):
         )
         return Response(
             data={'message': 'The comment is liked !'},
-            status=status.HTTP_200_OK
+            status=status.HTTP_201_CREATED
         )

@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from usermodule.api.serializers import ProfileSerializer
 from usermodule.models import FollowerMap
-
 from usermodule.models import Profile
 
 
@@ -34,6 +34,40 @@ def create_auth(request):
 
 class FollowerRequestView(APIView):
     """Allows one user to follow/unfollow other user."""
+
+    def get(self, request, follow_tag):
+        """
+        Get list of followers or following.
+
+        Available tag:
+        1. follower
+        2. following
+        """
+        if follow_tag.lower() == 'follower':
+            uuid_list = FollowerMap.objects.filter(
+                following=request.user.profile
+            ).values_list(
+                'follower__uuid', flat=True
+            )
+        elif follow_tag.lower() == 'following':
+            uuid_list = FollowerMap.objects.filter(
+                follower=request.user.profile
+            ).values_list(
+                'following__uuid', flat=True
+            )
+        else:
+            raise Exception('Proper Tag was not passed.')
+        profiles = Profile.objects.filter(
+            uuid__in=uuid_list
+        )
+        serialized = ProfileSerializer(
+            profiles,
+            many=True
+        )
+        return Response(
+            data=serialized.data,
+            status=status.HTTP_200_OK
+        )
 
     def post(self, request, follow_profile_username):
         """Follow an user."""
