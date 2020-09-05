@@ -5,9 +5,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from activity.api.serializers import NestedCommentSerializer
-from activity.models import Activity, Comment, CommentLike
+from activity.models import Activity, Comment, CommentLike, PostView, SoundView
 
 from posts.models import Post
+
+from sounds.models import Sound
 
 from usermodule.models import FollowerMap
 
@@ -172,3 +174,45 @@ class LikeCommentView(APIView):
             data={'message': 'The comment is liked !'},
             status=status.HTTP_201_CREATED
         )
+
+
+class IncrementPostView(APIView):
+    """Increment post views."""
+
+    def post(self, request, post_id):
+        """Increment post view for this user."""
+        try:
+            PostView.objects.create(
+                post=Post.objects.get(uuid=post_id),
+                profile=request.user.profile
+            )
+            return Response(
+                data={'message': 'Post has been viewed by this user.'},
+                status=status.HTTP_201_CREATED
+            )
+        except BaseException:
+            return Response(
+                data={'message': 'Post has already been viewed by this user.'},
+                status=status.HTTP_200_OK
+            )
+
+
+class IncrementSoundView(APIView):
+    """Increment post views."""
+
+    def post(self, request, sound_id):
+        """Increment post view for this user."""
+        try:
+            SoundView.objects.create(
+                sound=Sound.objects.get(uuid=sound_id),
+                profile=request.user.profile
+            )
+            return Response(
+                data={'message': 'Sound has been viewed by this user.'},
+                status=status.HTTP_201_CREATED
+            )
+        except BaseException:
+            return Response(
+                data={'message': 'Sound has already been viewed by this user.'},
+                status=status.HTTP_200_OK
+            )

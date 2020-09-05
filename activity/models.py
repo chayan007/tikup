@@ -78,6 +78,9 @@ class SoundView(BaseModel):
             self.sound.name
         )
 
+    class Meta:
+        unique_together = ('profile', 'sound',)
+
 
 class PostView(BaseModel):
     """Record all views in posts."""
@@ -90,3 +93,6 @@ class PostView(BaseModel):
             self.profile.user.username,
             self.post.description[:20]
         )
+
+    class Meta:
+        unique_together = ('profile', 'post',)
