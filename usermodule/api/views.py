@@ -97,3 +97,29 @@ class FollowerRequestView(APIView):
                 status=status.HTTP_200_OK
             )
 
+
+class FollowerMetricsView(APIView):
+    """Get follower metrics."""
+
+    def get(self, request, follow_tag):
+        """
+        Get count of followers or following.
+
+        Available follow_tag:
+        1. follower
+        2. following
+        """
+        if follow_tag.lower() == 'follower':
+            count = FollowerMap.objects.filter(
+                following=request.user.profile
+            ).count()
+        elif follow_tag.lower() == 'following':
+            count = FollowerMap.objects.filter(
+                follower=request.user.profile
+            ).count()
+        else:
+            raise Exception('Proper Tag was not passed.')
+        return Response(
+            data={'count': count},
+            status=status.HTTP_200_OK
+        )
