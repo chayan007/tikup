@@ -6,7 +6,9 @@ from posts.api.views import (
     SoundBasedPostView,
     PostUploadView,
     PostSearchView,
-    PostMetricsView
+    PostMetricsView,
+    UserLikedPostView,
+    UserPostView
 )
 
 urlpatterns = [
@@ -14,5 +16,7 @@ urlpatterns = [
     path('api/upload/', PostUploadView.as_view(), name='upload_post'),
     path('api/search/', PostSearchView.as_view(), name='search_post'),
     path('api/metrics/<indicator>/<post_id>', PostMetricsView.as_view(), name='post_metrics'),
-    path('api/sound/<sound_id>', SoundBasedPostView.as_view(), name='post_by_sound')
+    path('api/sound/<sound_id>', SoundBasedPostView.as_view(), name='post_by_sound'),
+    path('api/posts/liked/<username>', UserLikedPostView.as_view(), name='user_liked_posts'),
+    path('api/posts/<username>', UserPostView.as_view(), name='user_posts')
 ]

@@ -118,3 +118,39 @@ class SoundBasedPostView(APIView):
             serializer.data,
             status=status.HTTP_200_OK
         )
+
+
+class UserPostView(APIView):
+    """Get all post by the user."""
+
+    def get(self, request, username):
+        """Get all videos for a profile."""
+        posts = Post.objects.filter(
+            profile__user__username=username
+        )
+        serialized = PostSerializer(
+            posts,
+            many=True
+        )
+        return Response(
+            data=serialized.data,
+            status=status.HTTP_200_OK
+        )
+
+
+class UserLikedPostView(APIView):
+    """Get the posts interacted by user."""
+
+    def get(self, request, username):
+        """Get all posts liked by the user."""
+        posts = Post.objects.annotate(
+            num_likes=Count('activity')
+        ).order_by('-created_at')
+        serialized = PostSerializer(
+            posts,
+            many=True
+        )
+        return Response(
+            serialized.data,
+            status=status.HTTP_200_OK
+        )
