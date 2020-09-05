@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -123,3 +124,41 @@ class FollowerMetricsView(APIView):
             data={'count': count},
             status=status.HTTP_200_OK
         )
+
+
+class ProfileSearchView(APIView):
+    """Search profiles."""
+
+    def get(self, request, *args, **kwargs):
+        """
+        Get paginated post search results.
+
+        <BASE_URL>/<endpoint>/[..query_params]
+
+        Available query_params options:
+        1. page_number [int, default 1]
+        2. page_size [int, default 50]
+        3. search [str]
+
+        misco.com/profile/search/?search=martial%20arts&page_size=100
+        """
+        page_number = request.query_params.get('page_number ', 1)
+        page_size = request.query_params.get('page_size ', 100)
+        search_token = request.query_params.get('search', None)
+        if not search_token:
+            raise Exception('Search Token not provided.')
+        profiles = Profile.objects.filter(
+            user__username__icontains=search_token
+        ) | Profile.objects.filter(
+            user__first_name=search_token
+        ) | Profile.objects.filter(
+            user__last_name=search_token
+        )
+        paginator = Paginator(profiles, page_size)
+        serializer = ProfileSerializer(
+            paginator.page(page_number),
+            many=True,
+            context={'request': request}
+        )
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+        return response
