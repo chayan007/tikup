@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from activity.api.serializers import NestedCommentSerializer
-from activity.models import Activity, Comment
+from activity.models import Activity, Comment, CommentLike
 
 from posts.models import Post
 
@@ -147,3 +147,28 @@ class PostReportView(APIView):
             )
         except BaseException as e:
             return Response(data={'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class LikeCommentView(APIView):
+    """Like a comment."""
+
+    def post(self, request, comment_id):
+        """Like the comment."""
+        liked_comment = CommentLike.objects.filter(
+            comment=Comment.objects.get(uuid=comment_id),
+            profile=request.user.profile
+        )
+        if liked_comment.exists():
+            liked_comment.delete()
+            return Response(
+                data={'message': 'The comment is unliked !'},
+                status=status.HTTP_200_OK
+            )
+        CommentLike.objects.create(
+            comment=Comment.objects.get(uuid=comment_id),
+            profile=request.user.profile
+        )
+        return Response(
+            data={'message': 'The comment is liked !'},
+            status=status.HTTP_200_OK
+        )

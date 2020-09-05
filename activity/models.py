@@ -59,3 +59,6 @@ class CommentLike(BaseModel):
             self.profile.user.get_full_name(),
             self.comment.comment
         )
+
+    class Meta:
+        unique_together = ('profile', 'comment',)
