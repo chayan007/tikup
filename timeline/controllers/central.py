@@ -28,7 +28,7 @@ class TimelineCentral:
         following_uuids = FollowerMap.objects.filter(
             follower=request.user.profile
         ).values_list(
-            'profile__uuid', flat=True
+            'following__profile__uuid', flat=True
         )
         qs = {
             'is_pornographic': False,
