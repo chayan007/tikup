@@ -25,6 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
     likes = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
     shares = serializers.SerializerMethodField()
+    views = serializers.SerializerMethodField()
 
     def get_likes(self, obj):
         return likes_count(obj)
