@@ -98,7 +98,8 @@ class TrendingSoundCategorisedView(APIView):
             ).order_by('-post')[:10]
             response[category.name] = SoundSerializer(
                 sounds,
-                many=True
+                many=True,
+                context={'request': request}
             )
         return Response(
             data=response,

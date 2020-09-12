@@ -116,7 +116,8 @@ class SoundBasedPostView(APIView):
         ).order_by('-num_likes')[:100]
         serializer = PostSerializer(
             posts,
-            many=True
+            many=True,
+            context={'request': request}
         )
         return Response(
             serializer.data,
@@ -134,7 +135,8 @@ class UserPostView(APIView):
         )
         serialized = PostSerializer(
             posts,
-            many=True
+            many=True,
+            context={'request': request}
         )
         return Response(
             data=serialized.data,
@@ -154,7 +156,8 @@ class UserLikedPostView(APIView):
         ).order_by('-created_at')
         serialized = PostSerializer(
             posts,
-            many=True
+            many=True,
+            context={'request': request}
         )
         return Response(
             serialized.data,
@@ -181,7 +184,8 @@ class TrendingTagPostView(APIView):
             ).order_by('-num_likes')[:10]
             response[hashtag.name] = PostSerializer(
                 posts,
-                many=True
+                many=True,
+                context={'request': request}
             ).data
         return Response(
             data=response,
