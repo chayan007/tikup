@@ -1,6 +1,9 @@
 from rest_framework import serializers
 
 from activity.utils import sound_views_count
+
+from favorites.utils import is_sound_favorite
+
 from usermodule.api.serializers import ProfileSerializer
 
 from sounds.models import Sound, SoundCategory
@@ -19,6 +22,16 @@ class SoundSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
     category = SoundCategorySerializer()
     views = serializers.SerializerMethodField()
+    is_favorite = serializers.SerializerMethodField()
+
+    def get_is_favorite(self, obj):
+        request = self.context.get('request')
+        if not request:
+            return False
+        return is_sound_favorite(
+            request.user.profile,
+            obj
+        )
 
     def get_views(self, obj):
         return sound_views_count(obj)
@@ -28,5 +41,5 @@ class SoundSerializer(serializers.ModelSerializer):
         fields = (
             'uuid', 'name', 'profile',
             'sound_file', 'first_video', 'copyright',
-            'category', 'sound_cover', 'views'
+            'category', 'sound_cover', 'views', 'is_favorite'
         )
