@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from activity.utils import post_views_count
+
 from posts.utils import comments_count, likes_count, share_count
 
 from sounds.api.serializers import SoundSerializer
@@ -36,10 +38,13 @@ class PostSerializer(serializers.ModelSerializer):
     def get_shares(self, obj):
         return share_count(obj)
 
+    def get_views(self, obj):
+        return post_views_count(obj)
+
     class Meta:
         model = Post
         fields = (
             'uuid', 'profile', 'sound', 'video_file',
             'video_gif', 'description', 'category',
-            'likes', 'shares', 'comments'
+            'likes', 'shares', 'comments', 'views'
         )
