@@ -130,11 +130,14 @@ class UserPostView(APIView):
 
     def get(self, request, username):
         """Get all videos for a profile."""
+        page_number = request.query_params.get('page_number', 1)
+        page_size = request.query_params.get('page_size', 50)
         posts = Post.objects.filter(
             profile__user__username=username
         )
+        paginator = Paginator(posts, page_size)
         serialized = PostSerializer(
-            posts,
+            paginator.page(page_number),
             many=True,
             context={'request': request}
         )
@@ -189,5 +192,34 @@ class TrendingTagPostView(APIView):
             ).data
         return Response(
             data=response,
+            status=status.HTTP_200_OK
+        )
+
+
+class TagFilteredPostView(APIView):
+    """Get list of posts of tags."""
+
+    def get(self, request, tag):
+        """Get posts of the same tag."""
+        page_number = request.query_params.get('page_number', 1)
+        page_size = request.query_params.get('page_size', 50)
+        tag = Hashtag.objects.get(name=tag.lower())
+        posts = Post.objects.filter(
+            uuid__in=HashtagLink.objects.filter(
+                hashtag=tag
+            ).values_list(
+                'post__uuid', flat=True
+            )
+        ).annotate(
+            num_likes=Count('activity')
+        ).order_by('-num_likes')
+        paginator = Paginator(posts, page_size)
+        serialized_posts = PostSerializer(
+            paginator.page(page_number),
+            many=True,
+            context={'request': request}
+        )
+        return Response(
+            serialized_posts.data,
             status=status.HTTP_200_OK
         )
