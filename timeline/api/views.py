@@ -13,8 +13,8 @@ class TimelineView(APIView):
 
     def get(self, request, *args, **kwargs):
         """Get the paginated timeline for authenticated user."""
-        page_number = request.query_params.get('page_number ', 1)
-        page_size = request.query_params.get('page_size ', 100)
+        page_number = request.query_params.get('page_number', 1)
+        page_size = request.query_params.get('page_size', 100)
         posts = TimelineCentral().posts(request)
         if not posts:
             raise Exception('There are no posts for you to see.')
