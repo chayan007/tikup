@@ -1,4 +1,5 @@
 """API views for activity app."""
+from django.core.paginator import Paginator
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -41,6 +42,8 @@ class PostCommentView(APIView):
 
     def get(self, request, post_id):
         """Get paginated comment for a single post."""
+        page_number = request.query_params.get('page_number', 1)
+        page_size = request.query_params.get('page_size', 50)
         follower_uuids = FollowerMap.objects.get(
             follower=request.user.profile
         ).values_list(
@@ -56,9 +59,11 @@ class PostCommentView(APIView):
             profile__in=follower_uuids
         )
         comments = follower_comment | non_follower_comment
+        paginator = Paginator(comments, page_size)
         serialized_comments = NestedCommentSerializer(
-            comments,
-            many=True
+            paginator.page(page_number),
+            many=True,
+            context={'request': request}
         ).data
         return Response(
             data=serialized_comments,

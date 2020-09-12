@@ -51,8 +51,8 @@ class PostSearchView(APIView):
 
         misco.com/post/search/?search=martial%20arts&page_size=100
         """
-        page_number = request.query_params.get('page_number ', 1)
-        page_size = request.query_params.get('page_size ', 50)
+        page_number = request.query_params.get('page_number', 1)
+        page_size = request.query_params.get('page_size', 50)
         search_token = request.query_params.get('search', None)
         if not search_token:
             raise Exception('Search Token not provided.')

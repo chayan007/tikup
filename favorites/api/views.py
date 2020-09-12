@@ -45,8 +45,8 @@ class FavoriteView(APIView):
 
         It will list the favorites based on your model selection.
         """
-        page_number = request.query_params.get('page_number ', 1)
-        page_size = request.query_params.get('page_size ', 100)
+        page_number = request.query_params.get('page_number', 1)
+        page_size = request.query_params.get('page_size', 100)
         instances = FavoriteCentral().show(
             request.user.profile,
             model_marker
