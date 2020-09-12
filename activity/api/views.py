@@ -47,7 +47,7 @@ class PostCommentView(APIView):
         follower_uuids = FollowerMap.objects.get(
             follower=request.user.profile
         ).values_list(
-            'profile__uuid', flat=True
+            'following__uuid', flat=True
         )
         follower_comment = Comment.objects.filter(
             post__uuid=post_id,
