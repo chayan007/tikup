@@ -149,7 +149,7 @@ class PostReportView(APIView):
                 post_uuid=post_id
             )
             return Response(
-                data={'mesaage': 'Post has been reported !'},
+                data={'message': 'Post has been reported !'},
                 status=status.HTTP_201_CREATED
             )
         except BaseException as e:
