@@ -7,7 +7,7 @@ def is_post_favorite(profile, post):
     return FavoritePost.objects.filter(
         post=post,
         profile=profile
-    ).exist()
+    ).exists()
 
 
 def is_sound_favorite(profile, sound):
@@ -15,4 +15,4 @@ def is_sound_favorite(profile, sound):
     return FavoriteSound.objects.filter(
         sound=sound,
         profile=profile
-    ).exist()
+    ).exists()
