@@ -44,7 +44,7 @@ class PostCommentView(APIView):
         """Get paginated comment for a single post."""
         page_number = request.query_params.get('page_number', 1)
         page_size = request.query_params.get('page_size', 50)
-        follower_uuids = FollowerMap.objects.get(
+        follower_uuids = FollowerMap.objects.filter(
             follower=request.user.profile
         ).values_list(
             'following__uuid', flat=True
