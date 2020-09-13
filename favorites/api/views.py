@@ -87,7 +87,7 @@ class UserInterestView(APIView):
 
         request.POST['category_ids'] -> [str, str, ..]
         """
-        category_ids = request.POST['category_ids']
+        category_ids = request.data['category_ids']
         try:
             for category_id in category_ids:
                 UserInterest.objects.create(

@@ -29,7 +29,7 @@ class PushNotificationsView(APIView):
             eg: ['sd034bf-1237sb9s-asfb2341', 'bcd125-gf433s-cer521']
         """
         PushNotificationStrategy().mark_notifications(
-            request.POST['notification_uuids']
+            request.data['notification_uuids']
         )
         return Response(
             data={'message': 'All notifications are marked read !'}
