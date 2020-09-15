@@ -39,7 +39,7 @@ class PostAdmin(admin.ModelAdmin):
         """Extract audio from this post."""
         return mark_safe(
             '<a href="{}" target="_blank">{}</a>'.format(
-                reverse('posts:extractor', args=str(obj.uuid)),
+                '/posts/api/extract/{}'.format(str(obj.uuid)),
                 'Click here to trigger sound extraction.'
             )
         )
