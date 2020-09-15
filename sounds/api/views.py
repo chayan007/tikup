@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from sounds.api.serializers import SoundSerializer
+from sounds.controllers.converter import AudioConverter
 from sounds.controllers.uploader import SoundUploader
 from sounds.exceptions import SoundUploadException
 from sounds.models import Sound, SoundCategory
@@ -104,4 +105,15 @@ class TrendingSoundCategorisedView(APIView):
         return Response(
             data=response,
             status=status.HTTP_200_OK
+        )
+
+
+class SoundExtractorView(APIView):
+
+    def post(self, request, post_uuid):
+        """Extract sound of the post."""
+        AudioConverter().extract(post_uuid)
+        return Response(
+            data={'message': 'Sound has been extracted'},
+            status=status.HTTP_201_CREATED
         )

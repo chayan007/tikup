@@ -37,14 +37,16 @@ class AudioConverter:
         except OSError as err:
             print(str(err))
 
-    def _add_to_sound(self, file_name, profile):
+    def _add_to_sound(self, file_name, post):
         """Store audio to Sound model."""
         with open(file_name, 'rb') as fi:
-            Sound.objects.create(
-                profile=profile,
+            sound = Sound.objects.create(
+                profile=post.profile,
                 sound_file=File(fi, name=os.path.basename(fi.name)),
                 is_extracted_audio=True
             )
+            post.sound = sound
+            post.save()
 
     def extract(self, post_uuid):
         """Extract audio from one post."""
@@ -54,5 +56,5 @@ class AudioConverter:
         time.sleep(1 * 60)
         self._add_to_sound(
             audio_file_path,
-            post.profile
+            post
         )
