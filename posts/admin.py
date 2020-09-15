@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 
 from posts.models import *
 from posts.utils import *
@@ -30,3 +32,12 @@ class PostAdmin(admin.ModelAdmin):
         'get_comments_count',
         'get_share_count'
     )
+
+    def trigger_sound_extraction(self, obj):
+        """Extract audio from this post."""
+        return mark_safe(
+            '<a href="{}" target="_blank">{}</a>'.format(
+                reverse('posts:extractor', args=str(obj.uuid)),
+                'Click here to trigger sound extraction.'
+            )
+        )

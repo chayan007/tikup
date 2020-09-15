@@ -1,6 +1,8 @@
 """Common URLs for posts application."""
 from django.urls import path, include
 
+from sounds.api.views import SoundExtractorView
+
 from posts.api import router
 from posts.api.views import (
     SoundBasedPostView,
@@ -22,5 +24,6 @@ urlpatterns = [
     path('api/tag/<tag>', TagFilteredPostView.as_view(), name='post_by_tag'),
     path('api/posts/liked/<username>', UserLikedPostView.as_view(), name='user_liked_posts'),
     path('api/posts/<username>', UserPostView.as_view(), name='user_posts'),
-    path('api/trending/', TrendingTagPostView.as_view(), name='trending_posts')
+    path('api/trending/', TrendingTagPostView.as_view(), name='trending_posts'),
+    path('api/extract/<post_uuid>', SoundExtractorView.as_view(), name='extractor')
 ]
