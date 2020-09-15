@@ -110,7 +110,7 @@ class TrendingSoundCategorisedView(APIView):
 
 class SoundExtractorView(APIView):
 
-    def post(self, request, post_uuid):
+    def get(self, request, post_uuid):
         """Extract sound of the post."""
         AudioConverter().extract(post_uuid)
         return Response(
