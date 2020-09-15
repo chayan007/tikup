@@ -24,7 +24,7 @@ class Post(BaseModel):
     """Model for posts."""
 
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    sound = models.ForeignKey(Sound, on_delete=models.PROTECT)
+    sound = models.ForeignKey(Sound, on_delete=models.PROTECT, null=True, blank=True)
     video_file = models.FileField(upload_to='uploads/videos/')
     video_gif = models.FileField(upload_to='uploads/gifs/', null=True, blank=True)
     description = models.TextField(null=True)
