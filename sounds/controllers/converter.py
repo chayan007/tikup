@@ -1,6 +1,7 @@
 """Convert video to audio instance."""
 import os
 import pipes
+import random
 import time
 
 from django.core.files import File
@@ -22,18 +23,22 @@ class AudioConverter:
         try:
             file, file_extension = os.path.splitext(file_name)
             file = pipes.quote(file)
+            output_file = '{}_{}'.format(
+                file,
+                random.randint(0, 999999)
+            )
             video_to_wav = 'ffmpeg -i {}{} {}.wav'.format(
                 file,
                 file_extension,
-                file
+                output_file
             )
             final_audio = 'lame {}.wav {}.mp3'.format(
-                file,
-                file
+                output_file,
+                output_file
             )
             os.system(video_to_wav)
             os.system(final_audio)
-            return '{}.mp3'.format(file)
+            return '{}.mp3'.format(output_file)
         except OSError as err:
             print(str(err))
 
