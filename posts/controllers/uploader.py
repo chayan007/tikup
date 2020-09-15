@@ -40,9 +40,17 @@ class PostUploader:
         try:
             original_post = category = None
             if details.get('share_post_uuid', None):
-                original_post = Post.objects.get(uuid=details.get('share_post_uuid'))
+                original_post = Post.objects.get(
+                    uuid=details.get('share_post_uuid')
+                )
             if details.get('category', None):
-                category = PostCategory.objects.get(name=details.get('category', None))
+                category = PostCategory.objects.get(
+                    name=details.get('category', None)
+                )
+            if details.get('sound_uuid', None):
+                sound = Sound.objects.get(
+                    uuid=details.get('sound_uuid', None)
+                )
             location = self.handle_location(request)
             is_location_added = True if location else False
             post = Post.objects.create(
@@ -50,7 +58,7 @@ class PostUploader:
                 video_file=file['video_file'],
                 video_gif=file['video_gif'],
                 description=details.get('description', None),
-                sound=Sound.objects.get(uuid=details.get('sound_uuid')),
+                sound=sound,
                 share_pointer=original_post,
                 category=category,
                 is_pornographic=details.get('is_pornographic', False),
