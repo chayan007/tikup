@@ -33,6 +33,8 @@ class PostAdmin(admin.ModelAdmin):
         'get_share_count'
     )
 
+    readonly_fields = ('trigger_sound_extraction', )
+
     def trigger_sound_extraction(self, obj):
         """Extract audio from this post."""
         return mark_safe(
