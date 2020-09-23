@@ -40,7 +40,7 @@ class Comment(BaseModel):
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    reply = models.ForeignKey('self', on_delete=models.PROTECT, related_name='reply_link', null=True, blank=True)
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, related_name='reply_link', null=True, blank=True)
     comment = models.TextField()
 
     def __str__(self):
@@ -53,8 +53,8 @@ class Comment(BaseModel):
 class CommentLike(BaseModel):
     """Store likes for every comment."""
 
-    comment = models.ForeignKey(Comment, on_delete=models.PROTECT)
-    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} has liked {}'.format(
@@ -69,8 +69,8 @@ class CommentLike(BaseModel):
 class SoundView(BaseModel):
     """Record all views in sounds."""
 
-    sound = models.ForeignKey(Sound, on_delete=models.PROTECT)
-    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    sound = models.ForeignKey(Sound, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} has viewed {}'.format(
@@ -85,8 +85,8 @@ class SoundView(BaseModel):
 class PostView(BaseModel):
     """Record all views in posts."""
 
-    post = models.ForeignKey(Post, on_delete=models.PROTECT)
-    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} has viewed {}'.format(

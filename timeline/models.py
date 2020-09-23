@@ -8,8 +8,8 @@ from usermodule.models import Profile
 class SeenPost(BaseModel):
     """Mark all posts seen by the user."""
 
-    post = models.ForeignKey(Post, on_delete=models.PROTECT)
-    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} has seen {}'.format(

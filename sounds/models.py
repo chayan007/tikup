@@ -35,7 +35,7 @@ class Sound(BaseModel):
     sound_cover = models.FileField(upload_to='uploads/cover/', null=True, blank=True)
     first_video = models.FileField(upload_to='uploads/videos/', null=True, blank=True)
     copyright = models.ForeignKey(Copyright, on_delete=models.CASCADE, null=True, blank=True)
-    category = models.ForeignKey(SoundCategory, on_delete=models.PROTECT, null=True, blank=True)
+    category = models.ForeignKey(SoundCategory, on_delete=models.CASCADE, null=True, blank=True)
     is_extracted_audio = models.BooleanField(default=False)
 
     def __str__(self):

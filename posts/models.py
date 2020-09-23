@@ -24,12 +24,12 @@ class Post(BaseModel):
     """Model for posts."""
 
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    sound = models.ForeignKey(Sound, on_delete=models.PROTECT, null=True, blank=True)
+    sound = models.ForeignKey(Sound, on_delete=models.CASCADE, null=True, blank=True)
     video_file = models.FileField(upload_to='uploads/videos/')
     video_gif = models.FileField(upload_to='uploads/gifs/', null=True, blank=True)
     description = models.TextField(null=True)
-    share_pointer = models.ForeignKey('self', on_delete=models.PROTECT, null=True, blank=True)
-    category = models.ForeignKey(PostCategory, on_delete=models.PROTECT, null=True, blank=True)
+    share_pointer = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(PostCategory, on_delete=models.CASCADE, null=True, blank=True)
     uploaded_location = models.ForeignKey(PostLocation, on_delete=models.CASCADE, null=True, blank=True)
     is_pornographic = models.BooleanField(default=False)
 
