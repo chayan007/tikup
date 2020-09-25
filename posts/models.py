@@ -32,6 +32,7 @@ class Post(BaseModel):
     category = models.ForeignKey(PostCategory, on_delete=models.CASCADE, null=True, blank=True)
     uploaded_location = models.ForeignKey(PostLocation, on_delete=models.CASCADE, null=True, blank=True)
     is_pornographic = models.BooleanField(default=False)
+    is_downloadable = models.BooleanField(default=False)
 
     def __str__(self):
         return self.profile.user.get_full_name()

@@ -62,6 +62,7 @@ class PostUploader:
                 share_pointer=original_post,
                 category=category,
                 is_pornographic=details.get('is_pornographic', False),
+                is_downloadable=details.get('is_downloadable', False),
                 uploaded_location=location
             )
             is_tags_added = TagCentral().handle_tag_cycle(post)

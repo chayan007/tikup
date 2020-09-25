@@ -58,5 +58,6 @@ class PostSerializer(serializers.ModelSerializer):
         fields = (
             'uuid', 'profile', 'sound', 'video_file',
             'video_gif', 'description', 'category',
-            'likes', 'shares', 'comments', 'views', 'is_favorite'
+            'likes', 'shares', 'comments', 'views',
+            'is_favorite', 'is_downloadable'
         )
