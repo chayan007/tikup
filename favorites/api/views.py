@@ -90,10 +90,13 @@ class UserInterestView(APIView):
         category_ids = request.data['category_ids']
         try:
             for category_id in category_ids:
-                UserInterest.objects.create(
-                    profile=request.user.profile,
-                    category=PostCategory.objects.get(uuid=category_id)
-                )
+                try:
+                    UserInterest.objects.create(
+                        profile=request.user.profile,
+                        category=PostCategory.objects.get(uuid=category_id)
+                    )
+                except BaseException:
+                    continue
             return Response(
                 data={'message': 'All categories are stored as interest.'},
                 status=status.HTTP_201_CREATED
