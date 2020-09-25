@@ -28,10 +28,12 @@ ipinfo==3.0.0
 ipinfo-django==1.1.0
 ipython==7.17.0
 ipython-genutils==0.2.0
+python-dotenv==0.14.0
 itypes==1.2.0
 jedi==0.17.2
 Jinja2==2.11.2
 MarkupSafe==1.1.1
+mysqlclient==2.0.1
 openapi-codec==1.3.2
 packaging==20.4
 parso==0.7.1

@@ -1,4 +1,8 @@
-from settings.base import *
+import os
+
+from tikup.base import BASE_DIR
+
+DEBUG = False
 
 DATABASES = {
     'default': {
