@@ -115,7 +115,7 @@ class PostLikeView(APIView):
             Activity.objects.create(
                 profile=profile,
                 activity_type='L',
-                post_uuid=post_id
+                post=Post.objects.get(uuid=post_id)
             )
             return Response(
                 data={'mesaage': 'Post has been liked !'},
