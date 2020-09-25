@@ -23,7 +23,7 @@ class NestedCommentSerializer(serializers.ModelSerializer):
     """Serializer for comment class along with replies."""
 
     profile = ProfileSerializer()
-    reply = CommentSerializer(many=True)
+    is_pointed_to = CommentSerializer(many=True)
     likes = serializers.SerializerMethodField()
 
     def get_likes(self, obj):
@@ -34,4 +34,5 @@ class NestedCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('uuid', 'profile', 'comment', 'reply', 'likes', 'created_at')
+        fields = ('uuid', 'profile', 'comment',
+                  'is_pointed_to', 'likes', 'created_at')

@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -162,3 +163,19 @@ class ProfileSearchView(APIView):
         )
         response = Response(serializer.data, status=status.HTTP_200_OK)
         return response
+
+
+class SelfProfileView(APIView):
+
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, *args, **kwargs):
+        """Get profile view."""
+        serialized_profile = ProfileSerializer(request.user.profile)
+        return Response(
+            data={
+                'profile': serialized_profile.data,
+                'is_self': True
+            },
+            status=status.HTTP_200_OK
+        )

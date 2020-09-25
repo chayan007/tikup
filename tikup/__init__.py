@@ -22,4 +22,3 @@ if os.getenv("ENVIRONMENT") == "local":  # local development
     from tikup.local import *
 else:  # production
     from tikup.production import *
-    
