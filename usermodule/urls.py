@@ -10,5 +10,6 @@ urlpatterns = [
     path('follow/<follow_profile_username>', views.FollowerRequestView.as_view(), name='follow'),
     path('followers/metrics/<follow_tag>', views.FollowerMetricsView.as_view(), name='metrics'),
     path('followers/<follow_tag>', views.FollowerRequestView.as_view(), name='followers'),
-    path('search/', views.ProfileSearchView.as_view(), name='search')
+    path('search/', views.ProfileSearchView.as_view(), name='search'),
+    path('api/profile/', views.SelfProfileView.as_view(), name='self_profile')
 ]
