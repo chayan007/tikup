@@ -26,7 +26,7 @@ inflection==0.5.1
 ipdb==0.13.3
 ipinfo==3.0.0
 ipinfo-django==1.1.0
-ipython==7.17.0
+ipython==7.18.1
 ipython-genutils==0.2.0
 python-dotenv==0.14.0
 itypes==1.2.0
