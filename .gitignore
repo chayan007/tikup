@@ -150,3 +150,7 @@ dmypy.json
 # vscode
 .vscode
 # End of https://www.toptal.com/developers/gitignore/api/django
+
+
+# sound
+__pycache__/
