@@ -43,3 +43,32 @@ This is a video streaming application similiar to Tiktok.
 For more information about the `.env` click [here](https://pypi.org/project/python-dotenv/).
 
 ---
+
+Deploy project in google cloud app engine
+
+Step : 1 Install gcloud app sdk.
+```
+Follow this link :https://cloud.google.com/sdk/docs/install
+```
+
+Step : 2 Fire this command for google cloud authentication.
+```
+gcloud auth login
+```
+   
+Step : 3 Init gcloud and config project.
+```
+gcloud init
+```
+
+Step : 4 Deploy final project.
+```
+gcloud app deploy app.yaml --project tokyo-amphora-240111
+```
+
+Step : 5 Check new deploy update.
+```
+https://tokyo-amphora-240111.uc.r.appspot.com/
+```
+
+
