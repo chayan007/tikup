@@ -10,6 +10,7 @@ from tikup.documentation import url_patterns as doc_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('usermodule.urls'), name='users'),
+    path('conversation/', include('conversation.urls'), name='conversation'),
     path('sounds/', include('sounds.urls'), name='sounds'),
     path('posts/', include('posts.urls'), name='posts'),
     path('tags/', include('tag.urls'), name='tags'),

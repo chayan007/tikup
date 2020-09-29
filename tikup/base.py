@@ -38,7 +38,8 @@ PROJECT_APPS = [
     'tag',
     'tracker',
     'usermodule',
-    'verification'
+    'verification',
+    'conversation'
 ]
 
 THIRD_PARTY_APPS = [
