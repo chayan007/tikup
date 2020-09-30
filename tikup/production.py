@@ -2,7 +2,7 @@ import os
 
 from tikup.base import BASE_DIR
 
-DEBUG = True
+DEBUG = False
 
 DATABASES = {
     'default': {
@@ -15,8 +15,8 @@ DATABASES = {
     }
 }
 
-DEFAULT_FILE_STORAGE = 'gcloud.GoogleCloudMediaFileStorage'
-STATICFILES_STORAGE = 'gcloud.GoogleCloudStaticFileStorage'
+DEFAULT_FILE_STORAGE = 'tikup.gcloud.GoogleCloudMediaFileStorage'
+STATICFILES_STORAGE = 'tikup.gcloud.GoogleCloudStaticFileStorage'
 
 GS_PROJECT_ID = 'tokyo-amphora-240111'
 GS_STATIC_BUCKET_NAME = 'misco-static-storage'
