@@ -26,11 +26,6 @@ class Conversation(BaseModel):
         on_delete=models.CASCADE
     )
 
-    last_exit = models.DateTimeField(
-        verbose_name='Last exit user',
-        auto_now=True,
-    )
-
     class Meta:
         ordering = ("-pk",)
         verbose_name = _("Conversation")
@@ -120,13 +115,8 @@ class BlockedUser(BaseModel):
         on_delete=models.CASCADE
     )
 
-    date = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_("Date"),
-    )
-
     class Meta:
-        ordering = ("-date",)
+        ordering = ("-created_at",)
         verbose_name = _("Blocked user")
         verbose_name_plural = _("Blocked users")
 
