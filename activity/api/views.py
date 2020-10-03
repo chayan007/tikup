@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 
 from activity.api.serializers import NestedCommentSerializer
 from activity.models import Activity, Comment, CommentLike, PostView, SoundView
+
 from notifications.models import Notification
 
 from posts.models import Post

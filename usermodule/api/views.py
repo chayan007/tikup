@@ -7,6 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from notifications.models import Notification
+
 from usermodule.api.serializers import ProfileSerializer
 from usermodule.models import FollowerMap
 from usermodule.models import Profile
@@ -80,6 +82,13 @@ class FollowerRequestView(APIView):
             FollowerMap.objects.create(
                 follower=request.user.profile,
                 following=following_profile
+            )
+            Notification.objects.create(
+                profile=following_profile.user.username,
+                message='{} followed you.'.format(
+                    request.user.profile.user.username
+                ),
+                category=Notification.NotificationCategory.PUSH.value
             )
             return Response(
                 {
