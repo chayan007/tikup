@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from activity.api.serializers import NestedCommentSerializer
+from activity.controllers.comment import CommentParser
 from activity.models import Activity, Comment, CommentLike, PostView, SoundView
 
 from notifications.models import Notification
@@ -35,6 +36,11 @@ class PostReplyView(APIView):
                     request.user.profile.user.username
                 ),
                 category=Notification.NotificationCategory.PUSH.value
+            )
+            CommentParser(
+                request.user.profile
+            ).parse_and_notify(
+                request.POST['comment']
             )
             return Response(
                 data={'mesaage': 'Reply has been created !'},
@@ -91,6 +97,18 @@ class PostCommentView(APIView):
                 comment=request.POST['comment'],
                 post=Post.objects.get(uuid=post_id),
                 profile=request.user.profile,
+            )
+            Notification.objects.create(
+                profile=Post.objects.get(uuid=post_id).profile,
+                message='{} has commented on your profile.'.format(
+                    request.user.profile.user.username
+                ),
+                category=Notification.NotificationCategory.PUSH.value
+            )
+            CommentParser(
+                request.user.profile
+            ).parse_and_notify(
+                request.POST['comment']
             )
             return Response(
                 data={'message': 'Comment Added !'},

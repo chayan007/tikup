@@ -18,7 +18,7 @@ class CommentParser:
             try:
                 Notification.objects.create(
                     profile=User.objects.get(username=username).profile,
-                    message='{} has replied to your comment.'.format(
+                    message='{} has tagged you in a comment.'.format(
                         self.commenter.user.profile.user.username
                     ),
                     category=Notification.NotificationCategory.PUSH.value
