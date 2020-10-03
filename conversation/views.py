@@ -46,6 +46,10 @@ class ConversationViewSet(ViewSet):
         except User.DoesNotExist:
             return Response({"error_message": "Receive user not found"}, status=status.HTTP_404_NOT_FOUND)
 
+        # check user are block or not
+        if is_blocked(self.request.user, user):
+            return Response({"block": True,"error_message": "You are block!"}, status=status.HTTP_400_BAD_REQUEST)
+
         try:
             # get conversation
             conversation = Conversation.objects.get(
@@ -74,7 +78,6 @@ class ConversationViewSet(ViewSet):
 
         try:
             conversation = Conversation.objects.get(pk=pk)
-            conversation.last_exit = datetime.now()
             conversation.delete()
             return Response({"message": "Conversation sucessfully delete"}, status=status.HTTP_204_NO_CONTENT)
         except Conversation.DoesNotExist:
@@ -141,7 +144,7 @@ class ConversationMessageViewSet(ViewSet):
             return Response({"error_message": "User not found", "id": pk}, status=status.HTTP_400_BAD_REQUEST)
 
         if is_blocked(receiver_exist, self.request.user):
-            return Response({"error_message": "You are block!"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"block":True, "error_message": "You are block!"}, status=status.HTTP_400_BAD_REQUEST)
 
         message = Message(
             user=self.request.user,
@@ -191,6 +194,8 @@ class BlockedUserViewSet(ViewSet):
 
         block_user = vaildata_data.initial_data.get("block_user")
 
+        block_status = False
+
         try:
             receiver_exist = User.objects.get(pk=block_user)
         except User.DoesNotExist:
@@ -200,19 +205,23 @@ class BlockedUserViewSet(ViewSet):
             block_user = BlockedUser.objects.get(
                 block_user=receiver_exist, user=self.request.user)
             message = "User are already blocked."
+            block_status = True
         except BlockedUser.DoesNotExist:
             if receiver_exist != self.request.user:
                 block_user = BlockedUser(
                     block_user=receiver_exist, user=self.request.user)
                 block_user.save()
                 message = "User successfully are blocked."
+                block_status = True
             else:
-                return Response({"error_message": "You are can't own block", "block_user": block_user}, status=status.HTTP_400_BAD_REQUEST)
+                block_status = False
+                return Response({"block": block_status,"error_message": "You are can't own block", "block_user": block_user}, status=status.HTTP_400_BAD_REQUEST)
 
         vaildata_data = BlockedUserSerializers(block_user)
 
         return Response({
             "block_user": vaildata_data.data,
+            "block": block_status,
             "message": message
         }, status=status.HTTP_201_CREATED)
 
@@ -224,6 +233,8 @@ class BlockedUserViewSet(ViewSet):
         """
         message = ""
 
+        block_status = False
+
         try:
             receiver_exist = User.objects.get(pk=pk)
         except User.DoesNotExist:
@@ -231,10 +242,12 @@ class BlockedUserViewSet(ViewSet):
 
         if receiver_exist and is_blocked(receiver_exist, self.request.user):
             message = "User are block."
+            block_status = True
         else:
             message = "User are not block."
+            block_status = False
 
-        return Response({"message": message}, status=status.HTTP_200_OK)
+        return Response({"block": block_status, "message": message}, status=status.HTTP_200_OK)
 
     def destroy(self, request, pk=None):
         """
@@ -254,7 +267,7 @@ class BlockedUserViewSet(ViewSet):
             if receiver_exist != self.request.user:
                 block_user = BlockedUser.objects.get(block_user=receiver_exist)
                 block_user.delete()
-                return Response({"message": "User are now sucessfully unblock"}, status=status.HTTP_200_OK)
+                return Response({"block": False, "message": "User are now sucessfully unblock"}, status=status.HTTP_200_OK)
             else:
                 return Response({"error_message": "You are not can't own unblock.", "id": pk}, status=status.HTTP_400_BAD_REQUEST)
         except BlockedUser.DoesNotExist:
