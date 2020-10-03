@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 
 from activity.api.serializers import NestedCommentSerializer
 from activity.models import Activity, Comment, CommentLike, PostView, SoundView
+from notifications.models import Notification
 
 from posts.models import Post
 
@@ -117,6 +118,13 @@ class PostLikeView(APIView):
                 activity_type='L',
                 post=Post.objects.get(uuid=post_id)
             )
+            Notification.objects.create(
+                profile=Post.objects.get(uuid=post_id).profile.user.username,
+                message='{} has liked your post'.format(
+                    profile.user.username
+                ),
+                category=Notification.NotificationCategory.PUSH.value
+            )
             return Response(
                 data={'mesaage': 'Post has been liked !'},
                 status=status.HTTP_201_CREATED
@@ -174,6 +182,13 @@ class LikeCommentView(APIView):
         CommentLike.objects.create(
             comment=Comment.objects.get(uuid=comment_id),
             profile=request.user.profile
+        )
+        Notification.objects.create(
+            profile=Comment.objects.get(uuid=comment_id).profile,
+            message='{} has liked your comment'.format(
+                request.user.profile.user.username
+            ),
+            category=Notification.NotificationCategory.PUSH.value
         )
         return Response(
             data={'message': 'The comment is liked !'},
