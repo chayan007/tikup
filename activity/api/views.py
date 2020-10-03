@@ -28,6 +28,13 @@ class PostReplyView(APIView):
                 reply=comment,
                 profile=request.user.profile,
             )
+            Notification.objects.create(
+                profile=comment.profile.user.username,
+                message='{} has replied to your comment.'.format(
+                    request.user.profile.user.username
+                ),
+                category=Notification.NotificationCategory.PUSH.value
+            )
             return Response(
                 data={'mesaage': 'Reply has been created !'},
                 status=status.HTTP_201_CREATED
