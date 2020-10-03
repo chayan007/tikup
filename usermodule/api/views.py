@@ -84,7 +84,7 @@ class FollowerRequestView(APIView):
                 following=following_profile
             )
             Notification.objects.create(
-                profile=following_profile.user.username,
+                profile=following_profile,
                 message='{} followed you.'.format(
                     request.user.profile.user.username
                 ),

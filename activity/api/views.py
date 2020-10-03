@@ -30,7 +30,7 @@ class PostReplyView(APIView):
                 profile=request.user.profile,
             )
             Notification.objects.create(
-                profile=comment.profile.user.username,
+                profile=comment.profile,
                 message='{} has replied to your comment.'.format(
                     request.user.profile.user.username
                 ),
@@ -127,7 +127,7 @@ class PostLikeView(APIView):
                 post=Post.objects.get(uuid=post_id)
             )
             Notification.objects.create(
-                profile=Post.objects.get(uuid=post_id).profile.user.username,
+                profile=Post.objects.get(uuid=post_id).profile,
                 message='{} has liked your post'.format(
                     profile.user.username
                 ),
