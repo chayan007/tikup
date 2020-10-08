@@ -169,7 +169,7 @@ class PostReportView(APIView):
             report_record = Activity.objects.filter(
                 profile=profile,
                 activity_type='R',
-                post_uuid=post_id
+                post__uuid=post_id
             )
             if report_record.exists():
                 report_record.delete()
