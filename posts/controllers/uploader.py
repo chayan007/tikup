@@ -47,6 +47,7 @@ class PostUploader:
                 category = PostCategory.objects.get(
                     name=details.get('category', None)
                 )
+            sound = Noneg
             if details.get('sound_uuid', None):
                 sound = Sound.objects.get(
                     uuid=details.get('sound_uuid', None)
