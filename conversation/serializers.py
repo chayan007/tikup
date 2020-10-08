@@ -15,21 +15,21 @@ class ConversationSerializers(ModelSerializer):
         return int(time.mktime(obj.created_at.timetuple()))
 
     def get_sender(self, obj):
-        if obj.sender.profile:
+        try:
             data = ProfileSerializer(obj.sender.profile).data
             data["id"] = obj.sender.id
             del data["uuid"]
             return data
-        else:
+        except:
             return {}
 
     def get_receiver(self, obj):
-        if obj.receiver.profile:
+        try:
             data = ProfileSerializer(obj.receiver.profile).data
             data["id"] = obj.receiver.id
             del data["uuid"]
             return data
-        else:
+        except:
             return {}
         
     def get_unread_message_sender(self, obj):
