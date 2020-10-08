@@ -12,6 +12,7 @@ from notifications.models import Notification
 from usermodule.api.serializers import ProfileSerializer
 from usermodule.models import FollowerMap
 from usermodule.models import Profile
+from usermodule.utils import personal_video_like_metric
 
 
 @api_view(['POST'])
@@ -184,7 +185,18 @@ class SelfProfileView(APIView):
         return Response(
             data={
                 'profile': serialized_profile.data,
-                'is_self': True
+                'is_self': True,
+                'metrics': {
+                    'followers': FollowerMap.objects.filter(
+                        following=request.user.profile
+                    ).count(),
+                    'following': FollowerMap.objects.filter(
+                        follower=request.user.profile
+                    ).count(),
+                    'likes': personal_video_like_metric(
+                        request.user.profile
+                    )
+                }
             },
             status=status.HTTP_200_OK
         )
