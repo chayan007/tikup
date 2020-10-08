@@ -15,6 +15,7 @@ from .serializers import (
 )
 from datetime import datetime
 
+import logging
 
 class ConversationViewSet(ViewSet):
     serializer_class = ConversationSerializers
@@ -141,7 +142,7 @@ class ConversationMessageViewSet(ViewSet):
         try:
             receiver_exist = User.objects.get(pk=conversation.receiver.pk)
         except User.DoesNotExist:
-            return Response({"error_message": "User not found", "id": pk}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error_message": "User not found", "id": vaildata_data.initial_data.get("conversation")}, status=status.HTTP_400_BAD_REQUEST)
 
         if is_blocked(receiver_exist, self.request.user):
             return Response({"block":True, "error_message": "You are block!"}, status=status.HTTP_400_BAD_REQUEST)
@@ -174,10 +175,12 @@ class ConversationMessageViewSet(ViewSet):
             message = Message.objects.get(pk=pk, user=self.request.user)
             message.is_delete = True
             message.save()
-            return Response({"message": "Message are successfully delete."}, status=status.HTTP_204_NO_CONTENT)
         except Message.DoesNotExist:
             return Response({"error_message": "Message are not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            logging.error(e)            
 
+        return Response({"message": "Message are successfully delete."}, status=status.HTTP_204_NO_CONTENT)
 
 class BlockedUserViewSet(ViewSet):
     serializer_class = BlockedUserSerializers
