@@ -193,3 +193,17 @@ class SelfProfileView(APIView):
             },
             status=status.HTTP_200_OK
         )
+
+    def put(self, request, *args, **kwargs):
+        """Modify profile details."""
+        qs = request.data.get('profile')
+        Profile.objects.update(
+            uuid=request.user.profile.uuid,
+            **qs
+        )
+        return Response(
+            data={
+                'message': 'Profile has been updated !'
+            },
+            status=status.HTTP_202_ACCEPTED
+        )
