@@ -57,3 +57,11 @@ def get_profile_metrics(profile):
         ).count(),
         'likes': personal_video_like_metric(profile)
     }
+
+
+def is_followed(following_profile, follower_profile):
+    """Return true if followed."""
+    return FollowerMap.objects.filter(
+        following=following_profile,
+        follower=follower_profile
+    ).exists()
