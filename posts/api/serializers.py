@@ -69,5 +69,5 @@ class PostSerializer(serializers.ModelSerializer):
             'uuid', 'profile', 'sound', 'video_file',
             'video_gif', 'description', 'category',
             'likes', 'shares', 'comments', 'views',
-            'is_favorite', 'is_downloadable'
+            'is_favorite', 'is_downloadable', 'is_viewed'
         )
