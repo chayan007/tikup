@@ -44,3 +44,16 @@ def personal_video_like_metric(profile_obj):
         post__in=user_posts,
         activity_type='L'
     ).count()
+
+
+def get_profile_metrics(profile):
+    """Get profile metrics."""
+    return {
+        'followers': FollowerMap.objects.filter(
+            following=profile
+        ).count(),
+        'following': FollowerMap.objects.filter(
+            follower=profile
+        ).count(),
+        'likes': personal_video_like_metric(profile)
+    }
