@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from activity.api.serializers import NestedCommentSerializer
+from activity.api.serializers import CommentSerializer
 from activity.controllers.comment import CommentParser
 from activity.models import Activity, Comment, CommentLike, PostView, SoundView
 
@@ -66,20 +66,28 @@ class PostCommentView(APIView):
         )
         follower_comment = Comment.objects.filter(
             post__uuid=post_id,
-            profile__uuid__in=follower_uuids
+            profile__uuid__in=follower_uuids,
+            reply__isnull=True
         )
         non_follower_comment = Comment.objects.filter(
-            post__uuid=post_id
+            post__uuid=post_id,
+            reply__isnull=True
         ).exclude(
             profile__in=follower_uuids
         )
         comments = follower_comment | non_follower_comment
         paginator = Paginator(comments, page_size)
-        serialized_comments = NestedCommentSerializer(
-            paginator.page(page_number),
-            many=True,
-            context={'request': request}
-        ).data
+        serialized_comments = []
+        for comment in paginator.page(page_number):
+            serialized_comments.append({
+                'actual_comment': CommentSerializer(comment).data,
+                'replies': CommentSerializer(
+                    Comment.objects.filter(
+                        reply=comment
+                    ),
+                    many=True
+                ).data
+            })
         return Response(
             data=serialized_comments,
             status=status.HTTP_200_OK
