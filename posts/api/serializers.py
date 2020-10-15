@@ -31,8 +31,18 @@ class PostSerializer(serializers.ModelSerializer):
     shares = serializers.SerializerMethodField()
     views = serializers.SerializerMethodField()
     is_favorite = serializers.SerializerMethodField()
+    is_viewed = serializers.SerializerMethodField()
 
     def get_is_favorite(self, obj):
+        request = self.context.get('request')
+        if not request:
+            return False
+        return is_post_favorite(
+            request.user.profile,
+            obj
+        )
+
+    def get_is_viewed(self, obj):
         request = self.context.get('request')
         if not request:
             return False
