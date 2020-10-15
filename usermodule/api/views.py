@@ -67,7 +67,8 @@ class FollowerRequestView(APIView):
         )
         serialized = ProfileSerializer(
             profiles,
-            many=True
+            many=True,
+            context={'request': request}
         )
         return Response(
             data=serialized.data,
@@ -181,7 +182,10 @@ class SelfProfileView(APIView):
 
     def get(self, request, *args, **kwargs):
         """Get profile view."""
-        serialized_profile = ProfileSerializer(request.user.profile)
+        serialized_profile = ProfileSerializer(
+            request.user.profile,
+            context={'request': request}
+        )
         return Response(
             data={
                 'profile': serialized_profile.data,
