@@ -8,16 +8,6 @@ automatic_scaling:
   min_instances: 1
   max_instances: 1
 
-env_variables:
-  DB_USER: aditya
-  DB_PASSWORD: aditya123
-  DB_HOST: 104.197.138.130
-  DB_NAME: django-rest
-  ENVIRONMENT: production
-  SECRET_KEY: "ecam-h@zyoo+-cq6ba4dx7ucux49wu)e!4g@)8!uuzx=6sbk0r"
-  GITHUB_TOKEN: 9ff6253fcd558f10270d312688017bf8a984b856
-  GOOGLE_APPLICATION_CREDENTIALS: google-permissions/app-engine-default-service-account.json
-
 handlers:
   - url: /.*
     secure: always
